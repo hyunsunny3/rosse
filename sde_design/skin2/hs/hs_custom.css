@@ -1,0 +1,179 @@
+.titWr{
+  text-align: center;
+  margin: 8rem 0;
+}
+.titWr h2{
+  font-size: 2.4rem;
+  font-weight: 500;
+}
+
+.hs .header_logo{
+  width: 200px;
+}
+.hs .xans-board-listpackage-8 .boardSort{
+  display: block;
+  margin: 0;
+  border-bottom: 0;
+  padding: 0;
+}
+.hs .xans-board-listpackage-8 .xans-board-list-8 li{
+  margin: 0;
+  padding: 0;
+}
+.hs .xans-board-listpackage-8 .xans-board-list-8 li .summary{
+  display: none;
+}
+
+.hs .brandWr{
+  padding: 5rem 15rem;
+  font-size: 1.8rem;
+}
+.hs .brandWr .about .titWr{
+  text-align: left;
+  display: flex;
+  justify-content: center;
+}
+.hs .brandWr .about .titWr h2{
+  width: min-content;
+}
+.hs .brandWr .about .titWr h2 span{
+  width: 25rem;
+  max-width: 500px;
+  display: inline-block;
+}
+.hs .brandWr .about .contWr .cont1{
+  display: grid;
+  grid-template-columns: 0.5fr 1fr;
+  column-gap: 10rem;
+  align-items: center;
+}
+.hs .brandWr .about .contWr .cont1 .tit{
+  font-size: 2rem;
+}
+.hs .brandWr .about .contWr .cont1 .tit img{
+  width: 35rem;
+}
+
+.hs .brandWr .about .contWr .cont2{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10rem;
+  align-items: center;
+}
+.hs .brandWr .about .contWr .cont2 strong{
+  font-size: 2.4rem;
+}
+
+/* Price */
+.hs .priceWr .contWr{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+.hs .priceWr .cont{
+  display: inline-block;
+  padding: 1rem 2rem;
+  box-shadow: 1px 1px 7px 3px #ddd;
+}
+.hs .priceWr .cont dt{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.hs .priceWr .cont dd{
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+}
+.hs .priceWr .cont dd ul li{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+
+
+
+/* ************************************* 
+**                                    **
+**               COMMON               **
+**                                    **
+************************************* */
+.xans-board .subject,
+.xans-board .subject *{
+    word-wrap: break-word;
+    font-size: 1.6rem;
+    font-weight: bold;
+    line-height: 1.5;
+    letter-spacing: -0.016rem;
+    color: var(--black);
+}
+.xans-board .subject a{
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    font-size: 2rem;
+}
+.xans-board .subTit{
+    display: inline-block;
+    margin-top: 0.8rem;
+    font-size: 1.4rem;
+    font-weight: normal;
+    line-height: 1.14;
+    letter-spacing: -0.014rem;
+    color: var(--dark);
+}
+
+/*** FAQ ***/
+.faqWr .faqCont dl{
+    margin: 0;
+}
+.faqWr .faqCont dl dt{
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    padding: 1.2rem 0;
+    font-size: 1.6rem;
+    font-weight: bold;
+    line-height: 1;
+    letter-spacing: -0.016rem;
+    background: url(//ecimg.cafe24img.com/pg961b94898369025/smbm0818/img/common/arr_bot.webp)no-repeat top 1.2rem right / 2rem;
+}
+.faqWr .faqCont dl.on dt{
+    background: url(//ecimg.cafe24img.com/pg961b94898369025/smbm0818/img/common/arr_top.webp)no-repeat top 1.2rem right / 2rem;
+}
+.faqWr .faqCont dl dt .cate{
+    flex-shrink: 0;
+    width: 6rem;
+    margin-right: 1rem;
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.faqWr .faqCont dl dd{
+    overflow: hidden;
+    position: relative;
+    height: 0;
+    padding: 0 1.6rem;
+    background-color: var(--thumb);
+    opacity: 0;
+}
+.faqWr .faqCont dl.on dd{
+    height: auto;
+    padding: 2.6rem 1.6rem;
+    opacity: 1;
+    margin-top: 0.8rem;
+}
+.faqWr .faqCont dl dd *{
+    font-family: 'Pretendard' !important;
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.54;
+    letter-spacing: -0.013rem;
+    color: var(--dark);
+}

@@ -1,0 +1,41 @@
+<div module="Board_ListPackage_3" class="innerWr faqWr">    
+    <div class="faqCont">
+        <ul module="board_list_3">
+            <!--
+                $login_page_url = /member/login.html
+                $deny_access_url = /index.html
+            -->
+            <li class="{$block_target_class}" {$block_data_attr}>
+                <dl>
+                    <dt class="subject">
+                        <span class="cate {$category_display|display}">{$category_name}</span>
+                        <p>{$subject}</p>
+                    </dt>
+                    <dd>{$content}</dd>
+                </dl>
+            </li>
+            <li class="{$block_target_class}" {$block_data_attr}>
+                <dl>
+                    <dt class="subject">
+                        <span class="cate {$category_display|display}">{$category_name}</span>
+                        <p>{$subject}</p>
+                    </dt>
+                    <dd>{$content}</dd>
+                </dl>
+            </li>
+        </ul>
+        <p class="message {$empty_display|display}" module="board_empty_3">{$empty_message}</p>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function(){
+        let faqCont = $('.faqCont');
+
+        faqCont.on('click', 'li.xans-record- dl', function() {
+            $(this).toggleClass('on').closest('li.xans-record-').siblings().find('.on').removeClass('on');
+        });
+
+    });
+</script>
