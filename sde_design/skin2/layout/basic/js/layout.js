@@ -48,10 +48,10 @@ function fixedHeader() { // 210804 서정환 수정
 
 	if(scrollY > header.offsetTop) {
         header.classList.add("fixed");
-		fixed_margin.style.marginTop  = header_height;
+		// fixed_margin.style.marginTop  = header_height;
     } else {
         header.classList.remove("fixed");
-		fixed_margin.style.marginTop  = '0px';
+		// fixed_margin.style.marginTop  = '0px';
     }
 }
 

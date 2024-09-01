@@ -7,6 +7,61 @@
 @import url(./hs_layout.css);
 @import url(./hs_form.css);
 
+@font-face {
+	font-family: 'constantia';
+	src: url(/font/constan.ttf);
+}
+
+/* Reset */
+html,
+body {
+	font-size: 62.5%;
+	scroll-behavior: smooth;
+}
+body {
+	width: 100%;
+	/* max-width: 720px; */
+  height: auto;
+	margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
+	font-family: 'Pretendard','constantia', 'Noto Sans KR', sans-serif;
+	line-height: 1;
+	box-sizing: border-box;
+	font-size: 1.6rem;
+	font-weight: normal;
+	font-style: normal;
+	color: #000;
+	letter-spacing: normal;
+	padding: 0;
+	margin: 0;
+	word-break: keep-all;
+	transition: all 0.3s;
+}
+* {
+	font-family: 'Pretendard','constantia', 'Noto Sans KR', sans-serif;
+	line-height: 1;
+	box-sizing: border-box;
+	font-weight: normal;
+	font-style: normal;
+	color: #000;
+	letter-spacing: normal;
+	padding: 0;
+	margin: 0;
+	word-break: keep-all;
+	transition: all 0.3s;
+}
+
+@media (max-width: 1560px)  {
+	html, body {font-size: 54%;}
+}
+@media (max-width: 1440px)  {
+    html, body {font-size: 50%;}
+}
+@media (max-width: 1150px)  {
+    html, body {font-size: 42%;}
+}
+
+
 /*** 공통 클래스 ***/
 .logo a{
 	display: block;
@@ -115,7 +170,7 @@ br.pc{
 	min-height: 80vh;
 }
 .secWr{
-	margin-top: 10rem;
+	margin-top: clamp(8rem,5.21vw,10rem);
 	padding-left: 12rem;
 	padding-right: 12rem;
 }
@@ -184,6 +239,12 @@ img[alt="필수"]{
 }
 
 /* swiper */
+.hs .swiper-wrapper{
+	align-items: stretch;
+}
+.hs .swiper-slide{
+	height: auto;
+}
 .hs .swiper-pagination-fraction{
 	position: absolute;
 	right: 1.6rem;

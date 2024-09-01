@@ -34,7 +34,19 @@ a:hover {text-decoration:none;}
 .main_top_banner .top_banner_box_inner .top_banner_close .icon {cursor:pointer;}
 
 /* 상단 */
-#header {width:100%;margin:0 auto;padding:0;background:#fff;position:relative;z-index:998;box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;border-bottom:1px solid #e8e8e8;}
+#header {
+	width:100%;
+	margin:0 auto;
+	padding:0;
+	background:#fff;
+	position:fixed;
+	top:0;left:0;right:0;z-index:998;
+	box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	border-bottom:1px solid #e8e8e8;
+}
+
 #header .inner {max-width:1760px;width:92%;margin:0 auto;padding:0;display:flex;align-items:center;flex-direction:column;}
 #header .inner .toparea {width:100%;height:50px;margin-top:10px;display:flex;justify-content:space-between;align-items:center;transform: translateY(0);position:relative;z-index:11;}
 #header .inner .toparea .toparea_shoppinginfo {display:flex;align-items:center;}
@@ -103,14 +115,7 @@ a:hover {text-decoration:none;}
 #header .inner .top_nav_box .top_mypage a {line-height:1;color:#1a1a1a;margin-left:26px;padding:0;border:0;display:flex;align-items:center;}
 #header .inner .top_nav_box .top_mypage a:first-child {margin-left:0;}
 #header .inner .top_nav_box .top_mypage a.xans-layout-orderbasketcount .count {position:absolute;top:40px;right:-10px;width:18px;height:18px;border-radius:50%;background-color:#000;color:#fff;text-align:center;line-height:1;font-size:12px;display:flex;align-items:center;justify-content:center;margin-left:5px;}
-#header.fixed {position:fixed;top:0;left:0;right:0;z-index:998;margin:0 auto;border-bottom:1px solid #e8e8e8 !important;-webkist-transform:translateY(-60px);-ms-transform:translateY(-60px);transform:translateY(-60px);}
 
-/* 카테고리가 대량일때 //주석 22.06.17
-#header .inner .top_nav_box .top_category > ul > li {display:none;}
-#header .inner .top_nav_box .top_category .cate_more {position:absolute;bottom:20px;right:20px;background:url('/SkinImg/img/cate_more_on.png') no-repeat;width:25px;height:29px;cursor:pointer;opacity:0.3;-webkit-transition: all 0.3s; -moz-transition: all 0.3s; -ms-transition: all 0.3s; -o-transition: all 0.3s;  transition: all 0.3s;}
-#header .inner .top_nav_box .top_category .cate_more:hover {opacity:0.8;}
-#header .inner .top_nav_box .top_category .cate_more.on {background:url('/SkinImg/img/cate_more_off.png') no-repeat;}
-*/
 
 @media all and (max-width:1780px) {
 	#header .inner .top_nav_box .top_category > ul > li {height:50px;}

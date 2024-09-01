@@ -1,168 +1,157 @@
 <!--@layout(/layout/basic/layout.html)-->
 <div class="galleryWr">
-  <div class="section" module="Board_ListPackage_8">
-    <!--@css(/css/module/board/listPackage_gallary.css)-->
-    <div module="board_title_8">
-        <div class="titleArea">
-            <h2>Gallery</h2>
-        </div>
+  <div class="secWr">
+    <div class="titWr">
+      <h2>Gallery</h2>
     </div>
-  
-    <div class="boardSort">
-        <span module="board_category_8">{$form.board_category}</span>
+
+    <div class="section" module="Board_ListPackage_8">
+      <!--@css(/css/module/board/listPackage_gallary.css)-->
+      <div class="boardSort">
+          <span module="board_category_8">{$form.board_category}</span>
+      </div>
+      
+      <div class="boardList">
+        <!-- 공지글 -->
+        <div module="board_notice_8">
+          <!--
+            $login_page_url = /member/login.html
+            $deny_access_url = /index.html
+          -->
+          <ul>
+            <li>
+              <div class="thumbnail fullImg_v"><img src="{$img_src}" alt="" /></div>
+              <div class="summary">
+                <ul>
+                  <li>{$notice_icon}</li>
+                  <li><strong>{$subject}</strong></li>
+                  <li>{$writer}</li>
+                  <li class="date {$date_display|display}">{$write_date|date:Y-m-d}</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="thumbnail fullImg_v"><img src="{$img_src}" alt="" /></div>
+              <div class="summary">
+                <ul>
+                  <li>{$notice_icon}</li>
+                  <li><strong>{$subject}</strong></li>
+                  <li>{$writer}</li>
+                  <li class="date {$date_display|display}">{$write_date|date:Y-m-d}</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+    
+        <!-- 고정글 -->
+        <div module="board_fixed_8">
+          <!--
+            $login_page_url = /member/login.html
+            $deny_access_url = /index.html
+          -->
+          <ul>
+            <li>
+              <div class="thumbnail fullImg_v"><img src="{$img_src}" alt="" /></div>
+              <div class="summary">
+                <ul>
+                  <li>{$fixed_icon}</li>
+                  <li><strong>{$subject}</strong></li>
+                  <li>{$writer}</li>
+                  <li class="date {$date_display|display}">{$write_date|date:Y-m-d}</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="thumbnail fullImg_v"><img src="{$img_src}" alt="" /></div>
+              <div class="summary">
+                <ul>
+                  <li>{$fixed_icon}</li>
+                  <li><strong>{$subject}</strong></li>
+                  <li>{$writer}</li>
+                  <li class="date {$date_display|display}">{$write_date|date:Y-m-d}</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+    
+        <!-- 기본 -->
+        <div module="board_list_8">
+          <!--
+            $count = 12
+            $login_page_url = /member/login.html
+            $deny_access_url = /index.html
+          -->
+          <ul>
+            <li>
+              <div class="thumbnail fullImg_v"><img src="{$img_src}" alt="" /></div>
+              <div class="summary">
+                <ul>
+                  <li><strong>{$subject}</strong></li>
+                  <li>{$writer}</li>
+                  <li class="date {$date_display|display}">{$write_date|date:Y-m-d}</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="thumbnail fullImg_v"><img src="{$img_src}" alt="" /></div>
+              <div class="summary">
+                <ul>
+                  <li><strong>{$subject}</strong></li>
+                  <li>{$writer}</li>
+                  <li class="date {$date_display|display}">{$write_date|date:Y-m-d}</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="boardListEmpty {$empty_display|display}" module="board_empty_8">
+          <p>{$empty_message}</p>
+        </div>
+      </div>
+    
+      <div module="board_ButtonList_8" class="{$write_display|display} ec-base-button gBottom">
+          <span class="gRight">
+              <a href="/board/gallery/write.html{$param_write}" class="btnSubmitFix sizeM {$write_display|display}">글쓰기</a>
+          </span>
+      </div>
+    
+      <div module="board_search_8" class="dis-no">
+        <!--@css(/css/module/board/search.css)-->
+        <fieldset class="boardSearch">
+          <legend>게시물 검색</legend>
+          <div class="form">{$form.search_date} {$form.search_key} {$form.search} <a href="#none" class="btnNormal" onclick="{$action_search}">찾기</a></div>
+        </fieldset>
+      </div>
     </div>
     
-    <div class="boardList">
-      <!-- 공지글 -->
-      <div module="board_notice_8">
-        <!--
-          $login_page_url = /member/login.html
-          $deny_access_url = /index.html
-        -->
-        <ul>
-          <li>
-            <div class="thumbnail fullImg_v">
-              <img src="{$img_src}" onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'" alt="" />
-            </div>
-            <div class="summary">
-              <ul>
-                <li>{$notice_icon}</li>
-                <li><strong>{$subject}</strong></li>
-                <li>{$writer}</li>
-                <li class="date {$date_display|display}">{$write_date|date:Y-m-d}</li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <div class="thumbnail fullImg_v">
-              <img src="{$img_src}" onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'" alt="" />
-            </div>
-            <div class="summary">
-              <ul>
-                <li>{$notice_icon}</li>
-                <li><strong>{$subject}</strong></li>
-                <li>{$writer}</li>
-                <li class="date {$date_display|display}">{$write_date|date:Y-m-d}</li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
-  
-      <!-- 고정글 -->
-      <div module="board_fixed_8">
-        <!--
-          $login_page_url = /member/login.html
-          $deny_access_url = /index.html
-        -->
-        <ul>
-          <li>
-            <div class="thumbnail fullImg_v">
-              <img src="{$img_src}" onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'" alt="" />
-            </div>
-            <div class="summary">
-              <ul>
-                <li>{$fixed_icon}</li>
-                <li><strong>{$subject}</strong></li>
-                <li>{$writer}</li>
-                <li class="date {$date_display|display}">{$write_date|date:Y-m-d}</li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <div class="thumbnail fullImg_v">
-              <img src="{$img_src}" onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'" alt="" />
-            </div>
-            <div class="summary">
-              <ul>
-                <li>{$fixed_icon}</li>
-                <li><strong>{$subject}</strong></li>
-                <li>{$writer}</li>
-                <li class="date {$date_display|display}">{$write_date|date:Y-m-d}</li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
-  
-      <!-- 기본 -->
-      <div module="board_list_8">
-        <!--
-          $count = 12
-          $login_page_url = /member/login.html
-          $deny_access_url = /index.html
-        -->
-        <ul>
-          <li>
-            <div class="thumbnail fullImg_v">
-              <img src="{$img_src}" onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'" alt="" />
-            </div>
-            <div class="summary">
-              <ul>
-                <li><strong>{$subject}</strong></li>
-                <li>{$writer}</li>
-                <li class="date {$date_display|display}">{$write_date|date:Y-m-d}</li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <div class="thumbnail fullImg_v">
-              <img src="{$img_src}" onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'" alt="" />
-            </div>
-            <div class="summary">
-              <ul>
-                <li><strong>{$subject}</strong></li>
-                <li>{$writer}</li>
-                <li class="date {$date_display|display}">{$write_date|date:Y-m-d}</li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="boardListEmpty {$empty_display|display}" module="board_empty_8">
-        <p>{$empty_message}</p>
-      </div>
+    <div module="board_paging_8" class="section ec-base-paginate typeList">
+      <a href="{$param_prev}">이전 페이지</a>
+      <ol>
+          <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+          <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+      </ol>
+      <a href="{$param_next}">다음 페이지</a>
     </div>
-  
-    <div module="board_ButtonList_8" class="{$write_display|display} ec-base-button gBottom">
-        <span class="gRight">
-            <a href="/board/gallery/write.html{$param_write}" class="btnSubmitFix sizeM {$write_display|display}">글쓰기</a>
-        </span>
+    
+    <!-- Admin only -->
+    <div class="section" module="board_catemove_8">
+      <!--@css(/css/module/board/catemove.css)-->
+      <span class="gColumn">{$board_catemove_selectbox}</span>
+      <span class="gColumn"><a href="#none" class="btnNormal sizeS" onclick="{$action_category_move}">{$category_move}</a></span>
     </div>
-  
-    <div module="board_search_8">
-      <!--@css(/css/module/board/search.css)-->
-      <fieldset class="boardSearch">
-        <legend>게시물 검색</legend>
-        <div class="form">{$form.search_date} {$form.search_key} {$form.search} <a href="#none" class="btnNormal" onclick="{$action_search}">찾기</a></div>
-      </fieldset>
+    
+    <div class="section" module="board_function_8">
+      <!--@css(/css/module/board/function.css)-->
+      <span class="gColumn">{$board_function_selectbox}</span>
+      <span class="gColumn">
+          <a href="#none" class="btnNormal sizeS" onclick="{$action_article_move}">{$article_move}</a>
+          <a href="#none" class="btnNormal sizeS" onclick="{$action_article_copy}">{$article_copy}</a>
+      </span>
+      <span class="ec-base-help">{$board_function_help|replace:*,}</span>
     </div>
+    <!-- // Admin only -->
   </div>
   
-  <div module="board_paging_8" class="section ec-base-paginate typeList">
-    <a href="{$param_prev}">이전 페이지</a>
-    <ol>
-        <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
-        <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
-    </ol>
-    <a href="{$param_next}">다음 페이지</a>
-  </div>
-  
-  <!-- Admin only -->
-  <div class="section" module="board_catemove_8">
-    <!--@css(/css/module/board/catemove.css)-->
-    <span class="gColumn">{$board_catemove_selectbox}</span>
-    <span class="gColumn"><a href="#none" class="btnNormal sizeS" onclick="{$action_category_move}">{$category_move}</a></span>
-  </div>
-  
-  <div class="section" module="board_function_8">
-    <!--@css(/css/module/board/function.css)-->
-    <span class="gColumn">{$board_function_selectbox}</span>
-    <span class="gColumn">
-        <a href="#none" class="btnNormal sizeS" onclick="{$action_article_move}">{$article_move}</a>
-        <a href="#none" class="btnNormal sizeS" onclick="{$action_article_copy}">{$article_copy}</a>
-    </span>
-    <span class="ec-base-help">{$board_function_help|replace:*,}</span>
-  </div>
-  <!-- // Admin only -->
 </div>

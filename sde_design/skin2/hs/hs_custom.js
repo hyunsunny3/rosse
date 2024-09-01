@@ -14,9 +14,9 @@ $(document).ready(function(){
 var mainSwiperMv = new Swiper('.mainVisual .swiper', {
   slidesPerView: 3,
   loop: true,
-  // autoplay: {
-  //     delay: 5000,
-  // },
+  autoplay: {
+      delay: 3000,
+  },
   pagination: {
       el: ".sec01-pagination",
       type: "fraction",
