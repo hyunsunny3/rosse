@@ -31,15 +31,34 @@
   }
   .hs .bottom-nav__tabBar li{
     flex: 1;
+    height: 100%;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .hs .bottom-nav__tabBar li a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: auto;
-    height: auto;
+    height: 100%;
     line-height: 1;
     font-size: 1.4rem;
     color: #000;
     text-indent: initial;
+  }
+  .hs .bottom-nav__tabBar li a img{
+    width: 4rem;
+  }
+  .hs .bottom-nav__tabBar li.call a img{
+    width: 3.5rem;
+    padding: 0.5rem 0;
+  }
+  .hs .bottom-nav__tabBar li a span{
+    display: block;
+    margin-top: 0.5rem;
   }
 }
 
@@ -131,6 +150,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+}
+.hs .bottom-nav.RW .bottom-nav__tabBar li a,
+.hs .bottom-nav.RW .bottom-nav__top a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 0;
+  line-height: 0;
+}
+
+.hs .bottom-nav.RW .bottom-nav__tabBar li a img,
+.hs .bottom-nav.RW .bottom-nav__top a img{
+  width: 2.5rem;
+  height: auto;
+  object-fit: contain;
+}
+.hs .bottom-nav.RW .bottom-nav__top a img{
+  width: 1.5rem;
 }
 
 @media (max-width: 1024px) {
@@ -164,6 +204,12 @@
   margin: 0 auto;
   padding: 5rem 5rem;
   font-size: 2rem;
+}
+.hs .brandWr .fullWr{
+  margin-top: 5rem;
+}
+.hs .brandWr article{
+  margin-bottom: 20rem;
 }
 .hs .brandWr .about .titWr{
   text-align: left;
@@ -207,12 +253,54 @@
 }
 .hs .brandWr .about .contWr p{
   margin-top: 2rem;
-  line-height: 1.4;
+  line-height: 1.65;
   font-size: clamp(1.6rem,0.94vw,1.8rem);
+}
+.hs .brandWr .about .contWr .cont2 p{
+  margin-top: 5rem;
 }
 
 .hs .brandWr .about .contWr .cont3{
   padding: 5rem 0;
+}
+
+.hs .brandWr .howCome.mo{
+  display: none;
+}
+.hs .brandWr .howCome{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 6rem;
+}
+.hs .brandWr .howCome .cont2{
+  padding: 3rem 0;
+}
+.hs .brandWr .howCome .cont2 strong{
+  display: block;
+  margin-bottom: 3rem;
+  font-weight: 500;
+}
+.hs .brandWr .howCome .cont2 p{
+  font-size: 1.6rem;
+  line-height: 1.5;
+  margin-top: 4rem;
+}
+.hs .brandWr .howCome .cont2 p span{
+  display: block;
+  font-size: 1.5rem;
+  color: #555;
+  font-weight: 500;
+  margin: 1rem 0;
+}
+.hs .brandWr .howCome .cont2 ul{
+  margin-top: 1rem;
+}
+.hs .brandWr .howCome .cont2 ul li{
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+.hs .brandWr .howCome img{
+  width: 50rem;
 }
 
 @media (max-width: 1024px){
@@ -221,6 +309,21 @@
   }
   .hs .brandWr .about .contWr .cont2{
     padding: 0;
+  }
+}
+@media (max-width: 720px){
+  .hs .brandWr article{
+    margin-bottom: 10rem;
+  }
+  .hs .brandWr .howCome.mo{
+    display: block;
+    text-align: center;
+  }
+  .hs .brandWr .howCome.pc{
+    display: none;
+  }
+  .hs .brandWr .howCome{
+    column-gap: 2rem;
   }
 }
 
@@ -305,6 +408,7 @@
   gap: 3rem;
 }
 .hs .priceWr .cont{
+  min-width: 280px;
   padding: 1rem;
   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, .1);
 }
@@ -345,22 +449,19 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 .hs .priceWr .cont ul li strong{
   font-weight: 500;
 }
 
 .hs .priceWr .cont.addPrd{
-  width: 40rem;
+  width: 50%;
   margin: 3rem auto;
   padding: 3rem;
 }
 
 @media (max-width: 1024px){
-  .hs .priceWr .contWr{
-    grid-template-columns: 1fr;
-  }
   .hs .priceWr .cont .tit p{
     font-size: 1.8rem;
   }
@@ -369,6 +470,17 @@
   }
   .hs .priceWr .cont ul li{
     font-size: 1.6rem;
+  }
+}
+@media (max-width: 720px){
+  .hs .priceWr .contWr{
+    grid-template-columns: 1fr;
+  }
+  .hs .priceWr .cont{
+    width: 100%;
+  }
+  .hs .priceWr .cont.addPrd{
+    width: 100%;
   }
 }
 
@@ -426,6 +538,8 @@
 /*** FAQ ***/
 .faqWr .faqCont dl{
     margin: 0;
+    padding: 0 1rem;
+    border-bottom: 1px solid #ddd;
 }
 .faqWr .faqCont dl dt{
     display: flex;
@@ -459,9 +573,8 @@
 }
 .faqWr .faqCont dl.on dd{
     height: auto;
-    padding: 2.6rem 1.6rem;
+    padding: 1rem 0.5rem;
     opacity: 1;
-    margin-top: 0.8rem;
 }
 .faqWr .faqCont dl dd *{
     font-family: 'Pretendard' !important;
