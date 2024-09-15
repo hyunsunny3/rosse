@@ -43,9 +43,15 @@
       optionValueList[1] = selectOptionValue;
 
       const optionValue = $('#product_option_id1 option:contains("' + selectOptionValue + '")').val();
+      
+      if(optionValue){
+        $('.item-date').removeClass('select');
+      }
+
       if (!optionValue) {
         const errMsg = "선택하신 날짜중에 이용하실 수 없는 날짜가 있습니다.\n" + date
         alert(errMsg)
+        
         return;
       }
 
@@ -60,9 +66,10 @@
           ")" +
           `<img src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg" alt="">`
       );
-      $(".item.item-date.ac").removeClass("ac");
-      $(".item.item-time.ac").removeClass("ac");
-      $(".item.item-option1.ac").removeClass("ac");
+      $(".item.item-date.ac").addClass("select");
+      // $(".item.item-date.ac").removeClass("ac");
+      // $(".item.item-time.ac").removeClass("ac");
+      // $(".item.item-option1.ac").removeClass("ac");
 
       // 날짜 옵션이 마지막이면 품주추가 진행
       const timeDisplayStyle = $('.item-time').css('display');
@@ -79,7 +86,9 @@
       if (reservationType === "usetime" && timeDisplayStyle !== 'none') {
         disableTimeOption(date);
       } else {
-        $('.item-option1 .add_option_1').removeClass('disabled');
+        disableAddOption(1, reservationType);
+        // $('.item-option1 .add_option_1').removeClass('disabled');
+        // $('.item-option1 .add_option_1').addClass('ac');
       }
       // 추가옵션 초기화
       initAddOption();
@@ -198,15 +207,29 @@
               dateText +
               `<img src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg" alt="">`
           );
-          $(".item.item-date.ac").removeClass("ac");
+          // $(".item.item-date.ac").removeClass("ac");
+          $(".item.item-date.ac").removeClass("select");
           if ($('.item-option1 .add_option_1').length <= 0) {
+            
             generateMultiItems();
+            return
+          }else{
+            $('.item-option1 .add_option_1').addClass("ac")
+          }
+          const flag = accomodationDisableAddOption(1);
+          // false 이면 알럿문구 노출한다
+          if (flag === false) {
+            alert('선택하신 기간내에 사용가능한 옵션이 없습니다.');
             return
           }
           $('.item-option1 .add_option_1').removeClass('disabled');
+          $('.item-option1 .add_option_1').addClass('ac');
+          
         }
-        $(".item.item-option1.ac").removeClass("ac");
+        // $(".item.item-option1.ac").removeClass("ac");
+        $(".item.item-date.ac").removeClass("select");
         initAddOption();
+
       }
     },
   });

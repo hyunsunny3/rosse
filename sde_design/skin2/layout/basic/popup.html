@@ -18,9 +18,19 @@
 
     <!--@js(/js/common.js)-->
     <!--@js(/layout/basic/js/popup.js)-->
+
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 </head>
 
-<body id="popup">
+<body id="popup"  onclick="closeIframe();">
+    <style>
+        body#popup{
+            margin: 0;
+            padding: 0;
+            background: rgba(0, 0, 0, .5);
+        }
+    </style>
 <!--@contents-->
 </body>
 </html>

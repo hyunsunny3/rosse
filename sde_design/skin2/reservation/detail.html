@@ -14,89 +14,377 @@
 <script charset="UTF-8" class="daum_roughmap_loader_script"
         src="https://reservation.cafe24.com/render/js/roughmapLoader.js"></script>
 
-<div class="reservation_area">
-    <div class="reservation_detail_area">
-        <div class="d-mobile">
-            <div module="product_detail" class="m_product_detail">
-                <!-- 참고 : 뉴상품관리 전용 변수가 포함되어 있습니다. 뉴상품관리 이외의 곳에서 사용하면 일부 변수가 정상동작하지 않을 수 있습니다. -->
-                <div class="overview" module="product_image">
-                    <div class="reservation_prd_img_view">
-                        <div class="reservation_modal_head"><span>{$name}</span><img
-                                src="https://m-img.cafe24.com/images/reservation/ic_imgDetail_close.svg" onclick="imgDetail()"
-                                alt="modalClose" /></div>
-                        <p class="prdImg">
-                            <a href="#none" id="prdDetailImg" data-param="{$zoom_param}"><img src="{$big_img}"
-                                                                                              class="bigImage" alt="" /></a>
-                        </p>
-                        <div module="Product_mobileImage">
-                            <!--
-                                $swipe = yes
-                            -->
-                            <ul class="product_image_list" onclick="imgDetail()">
-                                <li data-param="{$zoom_param}">
-                                    <p class="thumbnail">
-                                        <img src="{$big_img}" class="{$thumb_img_class}" alt="{$seo_alt_tag}" loading="lazy" ez-prevent="img"><span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}" style="background-image:url('{$icon_url}');"></span></span>
-                                    </p>
-                                </li>
-                                {$aAddImage}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- //참고 -->
-                <div class="imgCount"><span class="location">1</span> / <span class="total"></span></div>
-            </div>
-        </div>
-
-        <div class="m_imgModal"></div>
-
-        <div class="prodWrap" module="product_detail">
+<div class="reservation_area secWr">
+    <!-- 상단 -->
+    <div class="prodWrap" module="product_detail">
+        <div class="reservationTit">
             <p class="reservation_prod_name">{$name}</p>
             <p class="reservation_prod_desc">{$summary_desc}</p>
-            <div class="price_wrap">
-                <div class="price_area">
-                    <span class="reservation_dc_price"></span>
-                    <span class="reservation_product_price"></span>
-                    <span class="reservation_product_custom"></span>
-                    <span id="reservation_product_price" class="displaynone">{$product_price}</span>
-                    <span id="reservation_product_custom" class="displaynone">{$product_custom}</span>
-                </div>
-            </div>
-            <div class="mapArea">
-                <a class="callMap calendarArea" href="javascript:void(0);" onclick="redirectCalendar()" style="display: none !important;"><img
-                        src="https://m-img.cafe24.com/images/reservation/calendar.svg" style="width: 16px" />예약달력 확인</a>
-                <a class="callMap callMapArea" href="javascript:void(0);" onclick="mapToggle()" style="display: none !important; margin-left: 5px !important;"><img
-                        src="https://m-img.cafe24.com/images/reservation/ic_map.svg" alt="callMap"/>지도확인</a>
+        </div>
+        <div class="mapArea">
+            <a class="callMap calendarArea" href="javascript:void(0);" onclick="redirectCalendar()" style="display: none !important;"><img
+                    src="https://m-img.cafe24.com/images/reservation/calendar.svg" style="width: 16px" />예약달력 확인</a>
+            <a class="callMap callMapArea" href="javascript:void(0);" onclick="mapToggle()" style="display: none !important; margin-left: 5px !important;"><img
+                    src="https://m-img.cafe24.com/images/reservation/ic_map.svg" alt="callMap"/>지도확인</a>
+        </div>
+        <div class="price_wrap dis-no">
+            <div class="price_area">
+                <span class="reservation_dc_price"></span>
+                <span class="reservation_product_price"></span>
+                <span class="reservation_product_custom"></span>
+                <span id="reservation_product_price" class="displaynone">{$product_price}</span>
+                <span id="reservation_product_custom" class="displaynone">{$product_custom}</span>
             </div>
         </div>
-        <div module="product_additional" class="prod_summary">
-            <p style="white-space: pre-line;">{$simple_desc}</p>
-        </div>
+    </div>
 
+    <!-- 예약옵션 선택 영역 -->
+    <div class="reservation_option_area">
+        <div class="sticky">
+            <div class="floatLayerBtn d-mobile" onclick="mobilePanelclose()"></div>
+            <div class="scrollWrap">
+                <div class="group group1">
+                    <ul class="accordionWrap">
+                        <!-- 이용날짜 -->
+                        <li class="item item-date" style="display: none">
+                            <a class="itemName" href="javascript:void(0)">
+                                <div class="d-pc reservation_text_center">
+                                    <span>이용날짜</span>
+                                </div>
+                                <div class="d-mobile">
+                                    <div class="tit">이용날짜</div>
+                                    <div class="insertData"></div>
+                                </div>
+                            </a>
 
-        <div class="module_imgWrap" id="pcProdThumb" style="display: none !important;">
-            <div module="Product_ZoomPackage">
-                <!--@js(/reservation/js/reservation_image.js)-->
-                <div class="content">
-                    <div module="product_zoom">
-                        <!--
-                            $popup_flag = T
-                        -->
-                        <div class="imgArea">
-                            <div class="keyImg" onclick="prodImgToggle()">
-                                <img src="{$big_img}" class="{$big_img_class}" alt=""/>
+                            <div class="itemOption">
+                                <!-- 다중 날짜 선택 시 data-range = "true", 단일 날짜 선택시 data-range = "false" -->
+                                <div class="calendar calendar_single" style="display: none">
+                                    <input type="text" data-range="false" data-language="ko_KR" class="datepicker-here" id="air_datepicker_single"/>
+                                </div>
+                                <div class="calendar calendar_multi" style="display: none">
+                                    <input type="text" data-range="true" data-multiple-dates-separator="~" data-language="ko_KR" class="datepicker-here" id="air_datepicker_multi"/>
+                                </div>
                             </div>
-                            <div class="listImg" module="product_addimage">
-                                <ul>
-                                    <li class="product_image_li">{$add_img}</li>
-                                    <li class="product_image_li">{$add_img}</li>
-                                </ul>
-                                <div class="countImg"></div>
+                        </li>
+
+                        <!-- 시간옵션 -->
+                        <li class="item item-time" style="display: none">
+                            <a class="itemName" href="javascript:void(0)">
+                                <div class="d-pc reservation_text_center">
+                                    <span>시간</span>
+                                    <img src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg" alt=""/>
+                                </div>
+                                <div class="d-mobile">
+                                    <div class="tit">시간</div>
+                                    <div class="insertData"></div>
+                                </div>
+                            </a>
+                            <div class="itemOption">
+                                <div class="timeWrap">
+                                    <div class="timeGroup">
+                                        <div id="afterTimeGroup"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <div id="afterAddOption"></div>
+
+                        <!-- 추가상품 -->
+                        <li id="addProductPanel" class="productSet item ac item-option2 add_option_area" module="product_addproduct">
+                            <!--
+                                $use_per_add_option = yes
+                            -->
+                            <a class="itemName" href="javascript:void(0)">
+                                <div class="d-pc">
+                                    <span>시간을 선택해주세요.</span>
+                                </div>
+                            </a>
+
+                            <ul class="product itemOption">
+                                <li>
+                                    <div class="information">
+                                        <div class="thumbnail">
+                                            <a href="{$link_product_detail}"
+                                            ><img src="{$product_image}" alt id="{$image_id}"
+                                            /></a>
+                                        </div>
+                                        <div>
+                                            <p class="name" title="상품명">{$product_name}</p>
+                                            <p class="price {$product_price_display|display}" title="판매가">
+                                                <span class="{$product_price_del}">{$product_price}{$product_tax_type_text}</span>
+                                            </p>
+                                            <p class="salePrice {$product_sale_price_display|display}" title="할인판매가">
+                                                {$product_sale_price}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <ul class="option">
+                                        <li module="product_option">
+                                            <ul>
+                                                <li class="reservation_option_select">
+                                                    {$form.option}
+                                                </li>
+                                                <li module="product_quantity">
+                                                    <div class="ec-base-qty">
+                                                        {$form.quantity}
+                                                        <a href="javascript:;" class="up qtyUp eClearUp"
+                                                        ><img
+                                                                id="{$quantity_up_id}"
+                                                                class="{$quantity_up_class}"
+                                                                alt="증가"
+                                                                src="//img.echosting.cafe24.com/skin/base/common/btn_quantity_up.gif"
+                                                        /></a>
+                                                        <a
+                                                                href="javascript:;"
+                                                                class="down qtyDown eClearDown"
+                                                        ><img
+                                                                id="{$quantity_down_id}"
+                                                                class="{$quantity_down_class}"
+                                                                alt="감소"
+                                                                src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_down.jpg"
+                                                        /></a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li module="product_noneoption">
+                                            <ul>
+                                                <li class="reservation_option_select">
+                                                    {$form.noneoption}
+                                                </li>
+                                                <li module="product_quantity">
+                                                    <div class="ec-base-qty">
+                                                        {$form.quantity}
+                                                        <a href="javascript:;" class="up qtyUp eClearUp">
+                                                            <img id="{$quantity_up_id}" class="{$quantity_up_class}" alt="증가" src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_up.jpg"/>
+                                                        </a>
+                                                        <a href="javascript:;" class="down qtyDown eClearDown">
+                                                            <img id="{$quantity_down_id}" class="{$quantity_down_class}" alt="감소" src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_down.jpg"/>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li module="product_addoption" class="reservation_option_select">
+                                            <span class="name">{$add_option_name}</span>
+                                            {$form.add_option}
+                                        </li>
+
+                                        <li class="{$add_option_push_button_display|display} selectButton" id="{$add_option_push_button_id}">
+                                            <a href="#none" class="btnSubmit sizeS" onclick="{$add_action_push_button}">옵션선택</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="information">
+                                        <div class="thumbnail">
+                                            <a href="{$link_product_detail}"><img src="{$product_image}" alt id="{$image_id}"/></a>
+                                        </div>
+                                        <div>
+                                            <p class="name" title="상품명">{$product_name}</p>
+                                            <p class="price {$product_price_display|display}" title="판매가">
+                                                <span class="{$product_price_del}">{$product_price}{$product_tax_type_text}</span>
+                                            </p>
+                                            <p class="salePrice {$product_sale_price_display|display}" title="할인판매가">
+                                                {$product_sale_price}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <ul class="option">
+                                        <li module="product_option">
+                                            <ul>
+                                                <li class="reservation_option_select">
+                                                    {$form.option}
+                                                    <p class="value">{$option_desc}</p>
+                                                </li>
+                                                <li module="product_quantity">
+                                                    <div class="ec-base-qty">
+                                                        {$form.quantity}
+                                                        <a href="javascript:;" class="up qtyUp eClearUp">
+                                                            <img id="{$quantity_up_id}" class="{$quantity_up_class}" alt="증가" src="//img.echosting.cafe24.com/skin/base/common/btn_quantity_up.gif"/>
+                                                        </a>
+                                                        <a href="javascript:;" class="down qtyDown eClearDown">
+                                                        <img id="{$quantity_down_id}" class="{$quantity_down_class}" alt="감소" src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_down.jpg"/>
+                                                    </a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li module="product_noneoption">
+                                            <ul>
+                                                <li class="reservation_option_select">
+                                                    {$form.noneoption}
+                                                </li>
+                                                <li module="product_quantity">
+                                                    <div class="ec-base-qty">
+                                                        {$form.quantity}
+                                                        <a href="javascript:;" class="up qtyUp eClearUp">
+                                                            <img id="{$quantity_up_id}" class="{$quantity_up_class}" alt="증가" src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_up.jpg"/>
+                                                        </a>
+                                                        <a href="javascript:;" class="down qtyDown eClearDown">
+                                                            <img id="{$quantity_down_id}" class="{$quantity_down_class}" alt="감소" src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_down.jpg"/></a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li module="product_addoption" class="reservation_option_select">
+                                            <span class="name">{$add_option_name}</span>
+                                            {$form.add_option}
+                                        </li>
+                                        <li class="{$add_option_push_button_display|display} selectButton" id="{$add_option_push_button_id}">
+                                            <a href="#none" class="btnSubmit sizeS" onclick="{$add_action_push_button}">옵션선택</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div module="product_detail">
+                    <div class="infoArea">
+                        <!-- 선택상품 -->
+                        <div id="{$total.total_id}" class="{$total.total_display}">
+                            <p class="ec-base-help txtWarn txt11 displaynone {$single_item_display|display}">수량을 선택해주세요.</p>
+                            <p class="ec-base-help txtWarn txt11 {$several_item_display|display}">옵션을 선택해주세요.</p>
+                            <table summary="">
+                                <caption class="displaynone">
+                                    상품 목록
+                                </caption>
+                                <colgroup>
+                                    <col style="width: 284px"/>
+                                    <col style="width: 80px"/>
+                                    <col style="width: 110px"/>
+                                </colgroup>
+                                <thead class="displaynone">
+                                <tr>
+                                    <th scope="col">상품명</th>
+                                    <th scope="col">상품수</th>
+                                    <th scope="col">가격</th>
+                                </tr>
+                                </thead>
+                                <tbody class="{$quantity_display|display} add_product_area">
+                                <tr class="single_product">
+                                    <td>{$name}</td>
+                                    <td>
+                                        <span class="quantity" style="width: 65px">
+                                            {$quantity}
+                                            <a href="javascript:;" class="up {$quantity_up_class}">+</a>
+                                            <a href="javascript:;" class="down {$quantity_down_class}">-</a>
+                                        </span>
+                                    </td>
+                                    <td class="right">
+                                        <span class="{$total.quantity_price}">{$product_price}</span>
+                                    </td>
+                                </tr>
+                                <tr id="{$total.option_id}" class="option" module="product_option">
+                                    <!--
+                                        $use_per_add_option = yes
+                                        $default_option = yes
+                                    -->
+                                    <td class="middle" colspan="3">
+                                        <table summary="">
+                                            <caption>
+                                                옵션 정보
+                                            </caption>
+                                            <colgroup>
+                                                <col style="width: 105px"/>
+                                                <col style="width: auto"/>
+                                            </colgroup>
+                                            <tbody>
+                                            <tr module="product_addoption">
+                                                <th scope="row">{$add_option_name}</th>
+                                                <td>
+                                                    {$form.add_option}
+                                                    <span class="txtByte" title="현재글자수/최대글자수">(<strong class="length">0</strong>/{$option_maxlength})</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+
+                                <!-- 옵션선택 또는 세트상품 선택시 상품이 추가되는 영역입니다. 삭제시 기능이 정상동작 하지 않습니다. -->
+                                <tbody class="add_product_area"></tbody>
+                                <tbody class="add_product_area option_products"></tbody>
+                                <!-- // 옵션선택 또는 세트상품 선택시 상품이 추가되는 영역입니다. 삭제시 기능이 정상동작 하지 않습니다. -->
+                            </table>
+                        </div>
+
+                        <div class="fakePrd">
+                            <ul>
+                                <li class="fakeDate">
+                                    <strong>날짜</strong>
+                                    <p></p>
+                                </li>
+                                <li class="fakeOpt">
+                                    <strong>컨셉</strong>
+                                    <p></p>
+                                </li>
+                                <li class="fakeTime">
+                                    <strong>시간</strong>
+                                    <p></p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- 총 금액 -->
+                        <div id="{$total.total_price_id}" class="totalPrice">
+                            <div>예약금</div>
+                            <div class="{$total.total_cnt}">
+                            </div>
+                        </div>
+
+                        <!-- 버튼 -->
+                        <div module="product_action" class="d-pc">
+                            <div class="ec-base-button gColumn">
+                                <a href="#none" class="reservBtn reservPCBtn {$buy_display|display}" onclick="{$action_buy}">
+                                    <span id="{$btn_buy_id}">예약하기</span>
+                                </a>
+                                <span class="btnEm sizeL gFlex2 {$soldout_display|display}">SOLD OUT</span>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- 쿠폰 영역 -->
+                <div module="coupon_productdetailajax">
+                    <!--
+                        $coupon_down_result_url = /coupon/coupon_down_result.html
+                    -->
+                    <div class="couponSkinArea">
+                        <!--
+                            진열 방식에따라 아래의 ul class 변경
+                            1열 : ul class="grid1"
+                            2열 : ul class="grid2"
+                            3열 : ul class="grid3"
+                        -->
+                        <ul class="grid1 couponWrap">
+                            <li class="item3" onclick="javascript:location.href='{$coupon_issue_url}'">
+                                <div class="coupon_item">
+                                    <div class="name">{$coupon_name}</div>
+                                    <div>다운받기</div>
+                                </div>
+                            </li>
+                            <li class="item3" onclick="javascript:location.href='{$coupon_issue_url}'">
+                                <div class="coupon_item">
+                                    <div class="name">{$coupon_name}</div>
+                                    <div>다운받기</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+
+    <!-- 상품 상세정보 숨김처리 -->
+    <div class="reservation_detail_area dis-no">
+        <div module="product_additional" class="prod_summary">
+            <p style="white-space: pre-line;">{$simple_desc}</p>
         </div>
 
         <div class="section d-pc" module="product_detail">
@@ -107,17 +395,7 @@
                     <!--@js(/reservation/js/reservation_image.js)-->
                     <div class="RW">
                         <div class="prdImg">
-                            <div class="thumbnail">
-                                <a href="/product/image_zoom2.html{$zoom_param}" alt="{$product_code}"
-                                   onclick="window.open(this.href, 'image_zoom2', 'toolbar=no,scrollbars=auto,resizable=yes,width=450,height=693,left=0,top=0', this);return false;">
-                                    <img src="{$big_img}" alt="{$seo_alt_tag}"
-                                         class="{$big_img_class} {$img_display|display}"><span
-                                        module="product_Imagestyle"><span class="prdIcon {$icon_class_name}"
-                                                                          style="background-image:url('{$icon_url}');"></span></span>
-                                </a>
-                                <span class="wish">{$wish_icon}</span>
-                                <div id="zoom_wrap"></div>
-                            </div>
+                            <div class="thumbnail"><img src="{$big_img}" alt="{$seo_alt_tag}" class="{$big_img_class} {$img_display|display}"></div>
                         </div>
                         <div class="listImg" module="product_addimage">
                             <div class="inner" style="position: relative; height: 62px;">
@@ -131,7 +409,8 @@
                 </div>
             </div>
         </div>
-        <table border="1" module="product_option" class="displaynone">
+
+        <table module="product_option" class="displaynone">
             <!--
                 $use_per_add_option = yes
             -->
@@ -146,15 +425,12 @@
                 <td>
                     <div class="ec-base-qty">
                         {$form.quantity}
-                        <a href="javascript:;" class="up qtyUp eClearUp"><img id="{$quantity_up_id}"
-                                                                              class="{$quantity_up_class}" alt="up"
-                                                                              src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_up.jpg"
-                                                                              width="33" height="29"></a>
-                        <a href="javascript:;" class="down qtyDown eClearDown"><img id="{$quantity_down_id}"
-                                                                                    class="{$quantity_down_class}"
-                                                                                    alt="down"
-                                                                                    src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_down.jpg"
-                                                                                    width="33" height="29"></a>
+                        <a href="javascript:;" class="up qtyUp eClearUp">
+                            <img id="{$quantity_up_id}" class="{$quantity_up_class}" alt="up" src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_up.jpg">
+                        </a>
+                        <a href="javascript:;" class="down qtyDown eClearDown">
+                            <img id="{$quantity_down_id}" class="{$quantity_down_class}" alt="down" src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_down.jpg">
+                        </a>
                     </div>
                 </td>
             </tr>
@@ -164,23 +440,14 @@
                 <th scope="row">{$add_option_name}</th>
                 <td>
                     {$form.add_option}
-                    <span class="txtByte" title="현재글자수/최대글자수">(<strong
-                            class="length">0</strong>/{$option_maxlength})</span>
+                    <span class="txtByte" title="현재글자수/최대글자수">(<strong class="length">0</strong>/{$option_maxlength})</span>
                 </td>
             </tr>
             </tbody>
             <tbody>
             <tr class="{$option_push_button_display|display}" id="{$option_push_button_id}">
-                <td colspan="2" class="selectButton"><a href="#none" class="btnSubmit sizeS"
-                                                        onclick="{$action_push_button}">옵션선택</a></td>
-            </tr>
-            <tr module="product_fileoption">
-                <th scope="row">{$file_option_name}</th>
-                <td class="fileInfo">
-                    {$form.file_option}
-                    <ul class="infoDesc">
-                        <li>- 파일은 최대 5개까지 {$file_option_limit}M 이하로 개별업로드 가능합니다.</li>
-                    </ul>
+                <td colspan="2" class="selectButton">
+                    <a href="#none" class="btnSubmit sizeS" onclick="{$action_push_button}">옵션선택</a>
                 </td>
             </tr>
             </tbody>
@@ -190,149 +457,22 @@
         <div module="product_additional" class="reservation_board_area">
             <!-- 상세정보 -->
             <div id="prdDetail">
-                <ul class="link">
-                    <li class="selected"><a href="javascript:boardMove('prdDetail')">상세정보</a></li>
-                    <li><a href="javascript:boardMove('prdInfo')">예약안내</a></li>
-                    <li>
-                        <a href="javascript:boardMove('prdReview')">예약후기<span>{$review_count}</span></a>
-                    </li>
-                    <li>
-                        <a href="javascript:boardMove('prdQnA')">예약문의<span>{$qna_count}</span></a>
-                    </li>
-                </ul>
                 <div class="cont">{$product_detail}</div>
             </div>
-            <!-- //상세정보 -->
 
             <!-- 예약안내 -->
             <div id="prdInfo">
-                <ul class="link">
-                    <li><a href="javascript:boardMove('prdDetail')">상세정보</a></li>
-                    <li class="selected"><a href="javascript:boardMove('prdInfo')">예약안내</a></li>
-                    <li>
-                        <a href="javascript:boardMove('prdReview')">예약후기<span>{$review_count}</span></a>
-                    </li>
-                    <li>
-                        <a href="javascript:boardMove('prdQnA')">예약문의<span>{$qna_count}</span></a>
-                    </li>
-                </ul>
                 <div class="cont">{$service_info}</div>
             </div>
-            <!-- //예약안내 -->
-
-            <!-- 예약후기 -->
-            <div id="prdReview">
-                <div class="mobilePrdReview">
-                    <ul class="link">
-                        <li><a href="javascript:boardMove('prdDetail')">상세정보</a></li>
-                        <li><a href="javascript:boardMove('prdInfo')">예약안내</a></li>
-                        <li class="selected">
-                            <a href="javascript:boardMove('prdReview')">예약후기<span>{$review_count}</span></a>
-                        </li>
-                        <li>
-                            <a href="javascript:boardMove('prdQnA')">예약문의<span>{$qna_count}</span></a>
-                        </li>
-                    </ul>
-
-                    <div class="board product_review">
-                        <div module="product_review">
-                            <!--@js(/reservation/js/review.js)-->
-                            <!--
-                              $count = 5
-                            -->
-                            <p class="noAccess {$deny_display|display}">글읽기 권한이 없습니다.</p>
-
-                            <div class="minor {$adult_display|display}">
-                                <p><span>19세 미만의 미성년자</span>는 출입을 금합니다.</p>
-                                <a class="btnBasic" href="/intro/board.html{$returnParam}">성인인증하기</a>
-                            </div>
-
-                            <div class="ec-base-table typeList">
-                                <table border="0" summary="" class="board {$list_display|display}">
-                                    <colgroup>
-                                        <col style="width: 450px"/>
-                                        <col style="width: 150px"/>
-                                        <col style="width: 100px"/>
-                                    </colgroup>
-                                    <thead class="displaynone" style="display: none">
-                                    <tr>
-                                        <th scope="col">제목</th>
-                                        <th scope="col">작성자</th>
-                                        <th scope="col">작성일</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="center">
-                                    <tr>
-                                        <td class="subject left txtBreak">
-                                        <span class="point {$use_point_display|display}"><img
-                                                src="//img.echosting.cafe24.com/skin/mobile_ko_KR/board/ico_star{$point_count}.png"
-                                                alt="{$point_count}점" width="50" height="8"/></span>
-                                            <div class="subject_area">
-                                                <a href="{$link_board_detail}{$param_read}"> {$subject} </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="id" title="작성자">{$writer}</span>
-                                        </td>
-                                        <td class="txtInfo txt12">{$write_date|date:Y-m-d}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="subject left txtBreak">
-                                        <span class="point {$use_point_display|display}"><img
-                                                src="//img.echosting.cafe24.com/skin/mobile_ko_KR/board/ico_star{$point_count}.png"
-                                                alt="{$point_count}점" width="50" height="8"/></span>
-                                            <div class="subject_area">
-                                                <a href="{$link_board_detail}{$param_read}"> {$subject} </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="id" title="작성자">{$writer}</span>
-                                        </td>
-                                        <td class="txtInfo txt12">{$write_date|date:Y-m-d}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <p class="reviewBtnArea">
-                            <a class="btn-line" href="{$review_list}">전체 보기</a>
-                            <a class="btn-fill" href="{$review_write}">작성 하기</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <!-- //예약후기 -->
 
             <!-- 예약문의 -->
             <div module="product_additional">
                 <!--@js(/reservation/js/qna.js)-->
                 <div id="prdQnA" class="menu_Idx {$qna_display|display} product_qna">
-                    <ul class="link">
-                        <li><a href="javascript:boardMove('prdDetail')">상세정보</a></li>
-                        <li><a href="javascript:boardMove('prdInfo')">예약안내</a></li>
-                        <li>
-                            <a href="javascript:boardMove('prdReview')">예약후기<span>{$review_count}</span></a>
-                        </li>
-                        <li class="selected">
-                            <a href="javascript:boardMove('prdQnA')">예약문의<span>{$qna_count}</span></a>
-                        </li>
-                    </ul>
-
                     <div class="">
                         <a name="use_review"></a>
                         <div module="product_qna">
                             <p class="noAccess {$deny_display|display}">글읽기 권한이 없습니다.</p>
-                            <div class="minor {$adult_display|display}">
-                                <p>
-                                    <img src="//img.echosting.cafe24.com/skin/base_ko_KR/product/ico_under19.gif"
-                                         alt=""/>
-                                    <strong>"19세 미만의 미성년자"</strong>는 출입을 금합니다!
-                                </p>
-                                <p class="button">
-                                    <a href="/intro/board.html{$returnParam}" class="btnEm sizeS">성인인증 하기</a>
-                                </p>
-                            </div>
                             <div class="ec-base-table typeList">
                                 <table border="0" summary="" class="prd_qna {$list_display|display}">
                                     <caption class="displaynone">
@@ -355,26 +495,22 @@
                                         <td class="subject left txtBreak">
                                             <div class="subject_area">
                                                 {$icon_re}{$icon_lock}
-                                                <a href="{$link_board_detail}{$param_read}"
-                                                   class="{$block_content_class}">{$subject}</a>
-                                                {$icon_new}{$icon_hit}{$icon_file}<span
-                                                    class="txtWarn">{$comment_count}</span>
+                                                <a href="{$link_board_detail}{$param_read}" class="{$block_content_class}">{$subject}</a>
+                                                {$icon_new}{$icon_file}
                                             </div>
                                         </td>
-                                        <td>{$member_icon} {$writer}</td>
+                                        <td>{$writer}</td>
                                         <td class="txtInfo txt12">{$write_date|date:Y-m-d}</td>
                                     </tr>
                                     <tr>
                                         <td class="subject left txtBreak">
                                             <div class="subject_area">
                                                 {$icon_re}{$icon_lock}
-                                                <a href="{$link_board_detail}{$param_read}"
-                                                   class="{$block_content_class}">{$subject}</a>
-                                                {$icon_new}{$icon_hit}{$icon_file}<span
-                                                    class="txtWarn">{$comment_count}</span>
+                                                <a href="{$link_board_detail}{$param_read}" class="{$block_content_class}">{$subject}</a>
+                                                {$icon_new}{$icon_file}
                                             </div>
                                         </td>
-                                        <td>{$member_icon} {$writer}</td>
+                                        <td>{$writer}</td>
                                         <td class="txtInfo txt12">{$write_date|date:Y-m-d}</td>
                                     </tr>
                                     </tbody>
@@ -382,560 +518,15 @@
                             </div>
                         </div>
                         <p class="reviewBtnArea">
-                            <a class="btn-line" href="{$qna_list}">전체 보기</a>
-                            <a class="btn-fill" href="{$qna_write}">작성 하기</a>
+                            <a class="btn-line" href="{$qna_list}">전체보기</a>
+                            <a class="btn-fill" href="{$qna_write}">작성하기</a>
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- //탭 -->
     </div>
-    <div class="reservation_option_area">
-        <div class="sticky">
-            <div class="floatLayerBtn d-mobile" onclick="mobilePanelclose()">
-                <img
-                        src="https://m-img.cafe24.com/images/reservation/ic_floatLayerArr.svg"
-                        alt="floatArr"
-                />
-            </div>
-            <div class="floatLayer">
-                <div class="scrollWrap">
-                    <div class="group group1">
-                        <!-- 구매 옵션 -->
-                        <ul class="accordionWrap">
-                            <!-- 이용날짜 -->
-                            <!-- item 활성화시 .ac -->
-                            <li class="item item-date" style="display: none">
-                                <a class="itemName" href="javascript:void(0)">
-                                    <div class="d-pc reservation_text_center">
-                                        <span>이용날짜</span>
-                                        <img
-                                                src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg"
-                                                style="width: 15px; padding-top: 2px"
-                                                alt=""
-                                        />
-                                    </div>
-                                    <div class="d-mobile">
-                                        <div class="tit">이용날짜</div>
-                                        <div class="insertData">
-                                            <img
-                                                    src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg"
-                                                    alt=""
-                                            />
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="itemOption">
-                                    <div class="calendar calendar_single" style="display: none">
-                                        <!-- 다중 날짜 선택 시 data-range = "true", 단일 날짜 선택시 data-range = "false" -->
-                                        <input
-                                                type="text"
-                                                data-range="false"
-                                                data-language="ko"
-                                                class="datepicker-here"
-                                                id="air_datepicker_single"
-                                        />
-                                    </div>
-                                    <div class="calendar calendar_multi" style="display: none">
-                                        <input
-                                                type="text"
-                                                data-range="true"
-                                                data-multiple-dates-separator="~"
-                                                data-language="ko"
-                                                class="datepicker-here"
-                                                id="air_datepicker_multi"
-                                        />
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item item-time" style="display: none">
-                                <a class="itemName" href="javascript:void(0)">
-                                    <div class="d-pc reservation_text_center">
-                                        <span>시간</span>
-                                        <img
-                                                src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg"
-                                                style="width: 15px; padding-top: 2px"
-                                                alt=""
-                                        />
-                                    </div>
-                                    <div class="d-mobile">
-                                        <div class="tit">시간</div>
-                                        <div class="insertData">
-                                            <img
-                                                    src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg"
-                                                    alt=""
-                                            />
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="itemOption">
-                                    <div class="timeWrap">
-                                        <div class="timeGroup">
-                                            <div id="afterTimeGroup"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <div id="afterAddOption"></div>
-                            <hr class="d-mobile m_order_hr"/>
-                            <li
-                                    id="addProductPanel"
-                                    class="productSet item item-option2 add_option_area"
-                                    module="product_addproduct"
-                            >
-                                <!--
-                                      $use_per_add_option = yes
-                                      -->
-                                <a class="itemName" href="javascript:void(0)">
-                                    <div class="d-pc">
-                                        <span>추가 구성상품</span>
-                                        <img
-                                                src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg"
-                                                style="width: 15px; padding-top: 2px"
-                                                alt=""
-                                        />
-                                        <div class="desc">추가로 함께 결제하시려면 선택해주세요</div>
-                                    </div>
-                                    <div class="d-mobile">
-                                        <div class="tit">
-                                            추가 구성상품
-                                            <div class="insertData">
-                                                <img
-                                                        src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg"
-                                                        alt=""
-                                                />
-                                            </div>
-                                        </div>
-                                        <div class="desc">추가로 함께 결제하시려면 선택해주세요</div>
-                                    </div>
-                                </a>
-
-                                <ul class="product itemOption">
-                                    <li>
-                                        <div class="information">
-                                            <div class="thumbnail">
-                                                <a href="{$link_product_detail}"
-                                                ><img src="{$product_image}" alt id="{$image_id}"
-                                                /></a>
-                                            </div>
-                                            <div>
-                                                <p class="name" title="상품명">{$product_name}</p>
-                                                <p
-                                                        class="price {$product_price_display|display}"
-                                                        title="판매가"
-                                                >
-                        <span class="{$product_price_del}"
-                        >{$product_price}{$product_tax_type_text}</span
-                        >
-                                                </p>
-                                                <p
-                                                        class="salePrice {$product_sale_price_display|display}"
-                                                        title="할인판매가"
-                                                >
-                                                    {$product_sale_price}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <ul class="option">
-                                            <li module="product_option">
-                                                <ul>
-                                                    <li class="reservation_option_select">
-                                                        {$form.option}
-                                                        <p class="value">{$option_desc}</p>
-                                                    </li>
-                                                    <li module="product_quantity">
-                                                        <div class="ec-base-qty">
-                                                            {$form.quantity}
-                                                            <a href="javascript:;" class="up qtyUp eClearUp"
-                                                            ><img
-                                                                    id="{$quantity_up_id}"
-                                                                    class="{$quantity_up_class}"
-                                                                    alt="증가"
-                                                                    src="//img.echosting.cafe24.com/skin/base/common/btn_quantity_up.gif"
-                                                                    width="33"
-                                                                    height="29"
-                                                            /></a>
-                                                            <a
-                                                                    href="javascript:;"
-                                                                    class="down qtyDown eClearDown"
-                                                            ><img
-                                                                    id="{$quantity_down_id}"
-                                                                    class="{$quantity_down_class}"
-                                                                    alt="감소"
-                                                                    src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_down.jpg"
-                                                                    width="33"
-                                                                    height="29"
-                                                            /></a>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li module="product_noneoption">
-                                                <ul>
-                                                    <li class="reservation_option_select">
-                                                        {$form.noneoption}
-                                                    </li>
-                                                    <li module="product_quantity">
-                                                        <div class="ec-base-qty">
-                                                            {$form.quantity}
-                                                            <a href="javascript:;" class="up qtyUp eClearUp"
-                                                            ><img
-                                                                    id="{$quantity_up_id}"
-                                                                    class="{$quantity_up_class}"
-                                                                    alt="증가"
-                                                                    src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_up.jpg"
-                                                                    width="33"
-                                                                    height="29"
-                                                            /></a>
-                                                            <a
-                                                                    href="javascript:;"
-                                                                    class="down qtyDown eClearDown"
-                                                            ><img
-                                                                    id="{$quantity_down_id}"
-                                                                    class="{$quantity_down_class}"
-                                                                    alt="감소"
-                                                                    src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_down.jpg"
-                                                                    width="33"
-                                                                    height="29"
-                                                            /></a>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li
-                                                    module="product_addoption"
-                                                    class="reservation_option_select"
-                                            >
-                                                <span class="name">{$add_option_name}</span>
-                                                {$form.add_option}
-                                                <span class="txtByte" title="현재글자수/최대글자수"
-                                                >(<span class="length">0</span
-                                                >/{$option_maxlength})</span
-                                                >
-                                            </li>
-
-                                            <li
-                                                    class="{$add_option_push_button_display|display} selectButton"
-                                                    id="{$add_option_push_button_id}"
-                                            >
-                                                <a
-                                                        href="#none"
-                                                        class="btnSubmit sizeS"
-                                                        onclick="{$add_action_push_button}"
-                                                >옵션선택</a
-                                                >
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <div class="information">
-                                            <div class="thumbnail">
-                                                <a href="{$link_product_detail}"
-                                                ><img src="{$product_image}" alt id="{$image_id}"
-                                                /></a>
-                                            </div>
-                                            <div>
-                                                <p class="name" title="상품명">{$product_name}</p>
-                                                <p
-                                                        class="price {$product_price_display|display}"
-                                                        title="판매가"
-                                                >
-                        <span class="{$product_price_del}"
-                        >{$product_price}{$product_tax_type_text}</span
-                        >
-                                                </p>
-                                                <p
-                                                        class="salePrice {$product_sale_price_display|display}"
-                                                        title="할인판매가"
-                                                >
-                                                    {$product_sale_price}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <ul class="option">
-                                            <li module="product_option">
-                                                <ul>
-                                                    <li class="reservation_option_select">
-                                                        {$form.option}
-                                                        <p class="value">{$option_desc}</p>
-                                                    </li>
-                                                    <li module="product_quantity">
-                                                        <div class="ec-base-qty">
-                                                            {$form.quantity}
-                                                            <a href="javascript:;" class="up qtyUp eClearUp"
-                                                            ><img
-                                                                    id="{$quantity_up_id}"
-                                                                    class="{$quantity_up_class}"
-                                                                    alt="증가"
-                                                                    src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_up.jpg"
-                                                                    width="33"
-                                                                    height="29"
-                                                            /></a>
-                                                            <a
-                                                                    href="javascript:;"
-                                                                    class="down qtyDown eClearDown"
-                                                            ><img
-                                                                    id="{$quantity_down_id}"
-                                                                    class="{$quantity_down_class}"
-                                                                    alt="감소"
-                                                                    src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_down.jpg"
-                                                                    width="33"
-                                                                    height="29"
-                                                            /></a>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li module="product_noneoption">
-                                                <ul>
-                                                    <li class="reservation_option_select">
-                                                        {$form.noneoption}
-                                                    </li>
-                                                    <li module="product_quantity">
-                                                        <div class="ec-base-qty">
-                                                            {$form.quantity}
-                                                            <a href="javascript:;" class="up qtyUp eClearUp"
-                                                            ><img
-                                                                    id="{$quantity_up_id}"
-                                                                    class="{$quantity_up_class}"
-                                                                    alt="증가"
-                                                                    src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_up.jpg"
-                                                                    width="33"
-                                                                    height="29"
-                                                            /></a>
-                                                            <a
-                                                                    href="javascript:;"
-                                                                    class="down qtyDown eClearDown"
-                                                            ><img
-                                                                    id="{$quantity_down_id}"
-                                                                    class="{$quantity_down_class}"
-                                                                    alt="감소"
-                                                                    src="//img.echosting.cafe24.com/skin/mobile/common/ico_quantity_down.jpg"
-                                                                    width="33"
-                                                                    height="29"
-                                                            /></a>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li module="product_addoption">
-                                                {$form.add_option}
-                                                <span class="txtByte" title="현재글자수/최대글자수"
-                                                >(<span class="length">0</span>/{$option_maxlength})</span>
-                                            </li>
-                                            <li
-                                                    class="{$add_option_push_button_display|display} selectButton"
-                                                    id="{$add_option_push_button_id}"
-                                            >
-                                                <a
-                                                        href="#none"
-                                                        class="btnSubmit sizeS"
-                                                        onclick="{$add_action_push_button}"
-                                                >옵션선택</a
-                                                >
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <hr class="d-mobile m_order_hr"/>
-                        </ul>
-                        <hr class="divider"/>
-                    </div>
-
-                    <div module="product_detail">
-                        <div class="infoArea">
-                            <div id="{$total.total_id}" class="{$total.total_display|display}">
-                                <p
-                                        class="ec-base-help txtWarn txt11 displaynone {$single_item_display|display}"
-                                >
-                                    수량을 선택해주세요.
-                                </p>
-                                <p
-                                        class="ec-base-help txtWarn txt11 {$several_item_display|display}"
-                                >
-                                    위 옵션선택 박스를 선택하시면 아래에 상품이 추가됩니다.
-                                </p>
-                                <table border="1" summary="">
-                                    <caption class="displaynone">
-                                        상품 목록
-                                    </caption>
-                                    <colgroup>
-                                        <col style="width: 284px"/>
-                                        <col style="width: 80px"/>
-                                        <col style="width: 110px"/>
-                                    </colgroup>
-                                    <thead class="displaynone">
-                                    <tr>
-                                        <th scope="col">상품명</th>
-                                        <th scope="col">상품수</th>
-                                        <th scope="col">가격</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="{$quantity_display|display} add_product_area">
-                                    <tr class="single_product">
-                                        <td>{$name}</td>
-                                        <td>
-                      <span class="quantity" style="width: 65px">
-                        {$quantity}
-                        <a href="javascript:;" class="up {$quantity_up_class}"
-                        ><img
-                                src="//img.echosting.cafe24.com/skin/base_ko_KR/product/btn_count_up.gif"
-                                alt="수량증가"
-                        /></a>
-                        <a
-                                href="javascript:;"
-                                class="down {$quantity_down_class}"
-                        ><img
-                                src="//img.echosting.cafe24.com/skin/base_ko_KR/product/btn_count_down.gif"
-                                alt="수량감소"
-                        /></a>
-                      </span>
-                                        </td>
-                                        <td class="right">
-                      <span class="{$total.quantity_price}"
-                      >{$product_price}</span
-                      >
-                                            <span class="mileage {$mileage_display|display}"
-                                            >(<img src="{$mileage_mileage_icon}"/>
-                        <span class="{$total.mileage_price}"
-                        >{$mileage_value}</span
-                        >)</span
-                                            >
-                                        </td>
-                                    </tr>
-                                    <tr
-                                            id="{$total.option_id}"
-                                            class="option"
-                                            module="product_option"
-                                    >
-                                        <!--
-                                                              $use_per_add_option = yes
-                                                              $default_option = yes
-                                                            -->
-                                        <td class="middle" colspan="3">
-                                            <table border="1" summary="">
-                                                <caption>
-                                                    옵션 정보
-                                                </caption>
-                                                <colgroup>
-                                                    <col style="width: 105px"/>
-                                                    <col style="width: auto"/>
-                                                </colgroup>
-                                                <tbody>
-                                                <tr module="product_addoption">
-                                                    <th scope="row">{$add_option_name}</th>
-                                                    <td>
-                                                        {$form.add_option}
-                                                        <span
-                                                                class="txtByte"
-                                                                title="현재글자수/최대글자수"
-                                                        >(<strong class="length">0</strong
-                                                        >/{$option_maxlength})</span
-                                                        >
-                                                    </td>
-                                                </tr>
-                                                <tr module="product_fileoption">
-                                                    <th scope="row">{$file_option_name}</th>
-                                                    <td class="fileInfo">
-                                                        {$form.file_option}
-                                                        <ul class="infoDesc">
-                                                            <li>
-                                                                - 파일은 최대 5개까지 {$file_option_limit}M
-                                                                이하로 개별업로드 가능합니다.
-                                                            </li>
-                                                        </ul>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                    <!-- 옵션선택 또는 세트상품 선택시 상품이 추가되는 영역입니다. 쇼핑몰 화면에는 아래와 같은 마크업구조로 표시됩니다. 삭제시 기능이 정상동작 하지 않습니다. -->
-                                    <tbody class="add_product_area"></tbody>
-                                    <tbody class="add_product_area option_products"></tbody>
-                                    <!-- // 옵션선택 또는 세트상품 선택시 상품이 추가되는 영역입니다. 쇼핑몰 화면에는 아래와 같은 마크업구조로 표시됩니다. 삭제시 기능이 정상동작 하지 않습니다. -->
-                                </table>
-                            </div>
-
-                            <div id="{$total.total_price_id}" class="totalPrice">
-                                <div>총 상품금액</div>
-                                <div class="{$total.total_cnt}">
-                                    <strong><em>0</em></strong> (0개)
-                                </div>
-                            </div>
-
-                            <div module="product_action" class="d-pc">
-                                <div class="ec-base-button gColumn">
-                                    <a
-                                            href="#none"
-                                            class="reservBtn reservPCBtn {$buy_display|display}"
-                                            onclick="{$action_buy}"
-                                    >
-                                        <span id="{$btn_buy_id}">예약하기</span>
-                                    </a>
-                                    <span class="btnEm sizeL gFlex2 {$soldout_display|display}"
-                                    >SOLD OUT</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 총 합계 -->
-
-                    <!-- 쿠폰 영역 -->
-                    <div module="coupon_productdetailajax">
-                        <!--
-                                        $coupon_down_result_url = /coupon/coupon_down_result.html
-                                      -->
-                        <div class="couponSkinArea">
-                            <!--
-                                              진열 방식에따라 아래의 ul class 변경
-                                              1열 : ul class="grid1"
-                                              2열 : ul class="grid2"
-                                              3열 : ul class="grid3"
-                                            -->
-                            <ul class="grid1 couponWrap">
-                                <li
-                                        class="item3"
-                                        onclick="javascript:location.href='{$coupon_issue_url}'"
-                                >
-                                    <div class="coupon_item">
-                                        <div class="name">{$coupon_name}</div>
-                                        <div>
-                                            <img
-                                                    src="https://m-img.cafe24.com/images/reservation/ic_download_coupon.svg"
-                                                    alt="다운받기"
-                                            />
-                                        </div>
-                                    </div>
-                                </li>
-                                <li
-                                        class="item3"
-                                        onclick="javascript:location.href='{$coupon_issue_url}'"
-                                >
-                                    <div class="coupon_item">
-                                        <div class="name">{$coupon_name}</div>
-                                        <div>
-                                            <img
-                                                    src="https://m-img.cafe24.com/images/reservation/ic_download_coupon.svg"
-                                                    alt="다운받기"
-                                            />
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
     <!-- 모바일 예약하기 버튼 영역 -->
     <div class="mobileBtn" style="z-index:990000 !important">
         <a href="javascript:void(0)" class="reservBtn reservMobileBtn" onclick="mobilePanel()">예약하기</a>
@@ -948,71 +539,25 @@
             </div>
         </div>
     </div>
-
 </div>
 
-
-<div class="modal-kakaomap displaynone" module="product_additional">
-    <div class="modalWrap">
-        <div class="modal-header">
-            <div class="tit">지도확인</div>
-            <button onclick="mapToggle()"><img src="https://m-img.cafe24.com/images/reservation/ic_modalClose.svg"
-                                               alt="modalClose"></button>
-        </div>
-        <div class="modal-con">{$shipping_info}</div>
-    </div>
-</div>
-
-<div class="modal-prodImg">
-    <div class="modalWrap">
-        <div class="modal-header" module="product_image">
-            <div class="tit">{$name}</div>
-            <button onclick="modalProdThumb()"><img
-                    src="https://m-img.cafe24.com/images/reservation/ic_imgDetail_close.svg"
-                    alt="modalClose"></button>
-        </div>
-        <div>
-            <div style="display: flex; align-items: center; justify-content: center; width: 850px; margin: auto;">
-                <div class="swiper-button-prev"><img src="https://m-img.cafe24.com/images/reservation/prev.svg"></div>
-                <div class="listImg swiper product_image_swiper" module="product_addimage">
-                    <ul class="swiper-wrapper">
-                        <li class="swiper-slide">{$add_img}</li>
-                        <li class="swiper-slide">{$add_img}</li>
-                    </ul>
-                </div>
-                <div class="swiper-button-next"><img src="https://m-img.cafe24.com/images/reservation/next.svg"></div>
-            </div>
-            <div class="pagination_area">
-                <div class="swiper-pagination swiper-pagination-fraction"></div>
-            </div>
-            <div class="listImg swiper product_thumbs_swiper" module="product_addimage">
-                <ul class="swiper-wrapper"
-                    style="transition-duration: 0ms; transform: translate3d(450px, 0px, 0px); transition-delay: 0ms;">
-                    <li class="swiper-slide">{$add_img}</li>
-                    <li class="swiper-slide">{$add_img}</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="hr"></div>
-
+<!-- 추천상품 -->
 <div class="product_relation">
     <div module="product_relation" id="prdRelated" class="ec-base-product">
         <div class="cboth detail_title">이런 상품은 어떠세요?</div>
         <div class="relation">
             <div module="product_relationlist">
-                <a class="slideArr-l swiper-button-prev" href="javascript:void(0)"><img
-                        src="https://m-img.cafe24.com/images/reservation/ic_slide_arr.svg" alt="slideArr"></a>
+                <a class="slideArr-l swiper-button-prev" href="javascript:void(0)">
+                    <img src="https://m-img.cafe24.com/images/reservation/ic_slide_arr.svg" alt="slideArr">
+                </a>
                 <div class="swiper recommended_products_swiper">
                     <ul class="swiper-wrapper">
                         <li class="swiper-slide">
                             <div class="box">
-                                <div class="thumbnail"><a href="{$link_product_detail}"><img src="{$img_medium}"
-                                                                                             alt="{$seo_alt_tag}"
-                                                                                             class="thumb"
-                                                                                             onerror="this.src='//img.echosting.cafe24.com/thumb/img_product_medium.gif';"/></a>
+                                <div class="thumbnail">
+                                    <a href="{$link_product_detail}">
+                                        <img src="{$img_medium}" alt="{$seo_alt_tag}" class="thumb" onerror="this.src='//img.echosting.cafe24.com/thumb/img_product_medium.gif';"/>
+                                    </a>
                                 </div>
                                 <div class="description">
                                     <div class="name"><a href="{$link_product_detail}">{$name}</a></div>
@@ -1024,10 +569,10 @@
                         </li>
                         <li class="swiper-slide">
                             <div class="box">
-                                <div class="thumbnail"><a href="{$link_product_detail}"><img src="{$img_medium}"
-                                                                                             alt="{$seo_alt_tag}"
-                                                                                             class="thumb"
-                                                                                             onerror="this.src='//img.echosting.cafe24.com/thumb/img_product_medium.gif';"/></a>
+                                <div class="thumbnail">
+                                    <a href="{$link_product_detail}">
+                                        <img src="{$img_medium}" alt="{$seo_alt_tag}" class="thumb" onerror="this.src='//img.echosting.cafe24.com/thumb/img_product_medium.gif';"/>
+                                    </a>
                                 </div>
                                 <div class="description">
                                     <div class="name"><a href="{$link_product_detail}">{$name}</a></div>
@@ -1039,67 +584,19 @@
                         </li>
                     </ul>
                 </div>
-                <a class="slideArr-r swiper-button-next" href="javascript:void(0)"><img
-                        src="https://m-img.cafe24.com/images/reservation/ic_slide_arr.svg" alt="slideArr"></a>
+                <a class="slideArr-r swiper-button-next" href="javascript:void(0)">
+                    <img src="https://m-img.cafe24.com/images/reservation/ic_slide_arr.svg" alt="slideArr">
+                </a>
             </div>
         </div>
     </div>
 </div>
 
-<div class="d-pc modal-review displaynone">
-    <div class="modalWrap">
-        <div class="modal-header">
-            <div class="tit">예약 후기 사진</div>
-            <button onclick="modalReviewClose()"><img
-                    src="https://m-img.cafe24.com/images/reservation/ic_imgDetail_close.svg"
-                    alt="modalClose"></button>
-        </div>
-        <div>
-            <div class="modal-review-main-swiper">
-                <div class="swiper-button-prev"><img src="https://m-img.cafe24.com/images/reservation/prev.svg"></div>
-                <div class="listImg swiper modal-review-swiper" module="product_addimage">
-                    <ul class="swiper-wrapper">
-                        <li class="swiper-slide">{$add_img}</li>
-                        <li class="swiper-slide">{$add_img}</li>
-                    </ul>
-                </div>
-                <div class="swiper-button-next"><img src="https://m-img.cafe24.com/images/reservation/next.svg"></div>
-            </div>
-            <div class="pagination_area">
-                <div class="swiper-pagination swiper-pagination-fraction"></div>
-            </div>
-            <div class="listImg swiper modal-review-thumbs-swiper" module="product_addimage">
-                <ul class="swiper-wrapper"
-                    style="transition-duration: 0ms; transform: translate3d(450px, 0px, 0px); transition-delay: 0ms;">
-                    <li class="swiper-slide">{$add_img}</li>
-                    <li class="swiper-slide">{$add_img}</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="d-mobile modal-review-mobile displaynone">
-    <div class="m_product_detail">
-        <div class="overview">
-            <div class="prdImgView">
-                <div class="modalHead"><span>예약 후기 사진</span><img
-                        src="https://m-img.cafe24.com/images/reservation/ic_imgDetail_close.svg"
-                        onclick="mobileReviewClose()" alt="modalClose"></div>
-
-                <div>
-                    <ul class="review_images" onclick="mobileReviewClose()">
-                    </ul>
-                </div>
-            </div>
-        </div><!-- //참고 -->
-
-        <div class="imgCount">
-            <span class="location">1</span> / <span class="total"></span>
-        </div>
-    </div>
-</div>
 <div class="hidden_block">
+    <div class="dateVal"></div>
+    <div class="optVal"></div>
+    <div class="timeVal"></div>
+
     <input type="hidden" id="reservation_type">
     <input type="hidden" id="date_str_list">
     <input type="hidden" id="reservation_start_date">
@@ -1108,14 +605,6 @@
     <input type="hidden" id="service_end_date">
     <input type="hidden" id="zero_qty_date_options">
 </div>
-
-<!-- 확대보기 -->
-
-<script>
-    const listImg = document.querySelectorAll(".listImg ul");
-    const countImg = document.querySelector(".countImg");
-    countImg.innerHTML = `+${listImg[0].childElementCount - 3}`;
-</script>
 
 <script src="https://reservation.cafe24.com/render/js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
@@ -1142,6 +631,9 @@
     const debouncedRenderSingle = debounce(disableSingleZeroQty, 100);
     const debouncedRenderMulti = debounce(disableMultiZeroQty, 100);
 
+    let optionValueCount = [];
+    let zeroOptionValues = {};
+
     /* 지도확인 */
     const modal = document.querySelector(".modal-kakaomap");
 
@@ -1150,11 +642,11 @@
 
     (function ($) {
         reservationJquery = $;
-        pcProdThumb.addEventListener("click", () => {
-            product_image_swiper.slideTo(0, 0, false);
-            product_thumbs_swiper.slideTo(0, 0, false);
-            modalProdThumb();
-        });
+        // pcProdThumb.addEventListener("click", () => {
+        //     product_image_swiper.slideTo(0, 0, false);
+        //     product_thumbs_swiper.slideTo(0, 0, false);
+        //     modalProdThumb();
+        // });
 
         // 예약하기 페이지 부모 영역 css 추가
         reservationJquery(".reservation_area").parent().css({margin: "0px", padding: "0px", width: "100%"});
@@ -1176,65 +668,6 @@
             if ($(e.target).hasClass("modal-review")) {
                 $(e.target).removeClass("on");
             }
-        });
-
-        // 이미지 메인 슬라이드
-        const product_image_swiper = new Swiper(".product_image_swiper", {
-            // Optional parameters
-            direction: "horizontal",
-            loop: false,
-
-            // Navigation arrows
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-
-            // And if we need scrollbar
-            scrollbar: {
-                el: ".swiper-scrollbar",
-            },
-            slidesPerView: 1,
-            on: {
-                activeIndexChange: function () {
-                    product_thumbs_swiper.slideTo(this.realIndex, 300, false);
-                },
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                currentClass: "swiper-pagination-current",
-                totalClass: "swiper-pagination-total",
-                type: "fraction",
-                renderFraction: function (currentClass, totalClass) {
-                    return (
-                        '<span class="' +
-                        currentClass +
-                        '" style="margin-right: 5px;"></span>/' +
-                        '<span class="' +
-                        totalClass +
-                        '" style="margin-left: 5px;"></span>'
-                    );
-                },
-            },
-        });
-
-        // 메인 이미지 하단에 있는 이미지 리스트 슬라이드
-        let slideInx = 0; //현재 슬라이드 index
-        const product_thumbs_swiper = new Swiper(".product_thumbs_swiper", {
-            direction: "horizontal",
-            loop: false,
-            slideToClickedSlide: true,
-            slidesPerGroup: 1,
-            spaceBetween: 0,
-            slidesPerView: "auto",
-            initialSlide: slideInx,
-            centeredSlides: true,
-            on: {
-                activeIndexChange: function () {
-                    slideInx = this.realIndex; //현재 슬라이드 index 갱신
-                    product_image_swiper.slideTo(slideInx, 300, false);
-                },
-            },
         });
 
         window.onload = async function () {
@@ -1310,21 +743,27 @@
                 history.replaceState(null, null, ' ');
             }
 
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('product_no')) {
-                const productNo = urlParams.get('product_no');
-                $.ajax({
-                    url: "https://reservation.cafe24.com/api/ec_front/reservation_detail",
-                    type: "GET",
-                    data: {
-                        'shop_no': CAFE24.SDE_SHOP_NUM,
-                        'mall_id': CAFE24.FRONT_JS_CONFIG_MANAGE.sMallId,
-                        'product_no': productNo
-                    },
-                    success: function (result) {
-                        processDataContent(result.data, $);
-                    }
-                });
+            // 프론트 api로 가져온 데이터를 가공한다
+            if (iProductNo) {
+                (function(CAFE24API) {
+                    CAFE24API.get('/api/v2/products/' + iProductNo + '?embed=custom_properties,variants,options&shop_no=' + CAFE24API.SHOP_NO, function (err, res) {
+                        if (res.product) {
+                            const variants = res.product.variants ? res.product.variants : {};
+                            const options = (res.product.options && res.product.options.options) ? res.product.options.options : {};
+                            const customProperties = res.product.custom_properties ? res.product.custom_properties : [];
+                            let result = convertOptionData(options);
+                            let propertiesData = convertPropertiesData(customProperties);
+                            result.reservation_type = propertiesData.reservation_type;
+                            result.service_start_date = propertiesData.service_start_date;
+                            result.service_end_date = propertiesData.service_end_date;
+                            getZeroOptionValues(variants);
+                            processDataContent(result, $);
+                        }
+                    })
+                })(CAFE24API.init({
+                    client_id : '99w67QuqGR8jrvD5qaCxRB',  // 사용할 앱의 App Key를 설정해 주세요.
+                    version : '2024-03-01'   // 적용할 버전을 설정해 주세요.
+                }));
             }
 
             if (CAFE24.MOBILE_DEVICE) {
@@ -1354,25 +793,9 @@
                 //observer.observe(target, option);
             }
 
-            // 이런 상품은 어떠세요? 슬라이드
-            const recommended_products = new Swiper(".recommended_products_swiper", {
-                direction: "horizontal",
-                loop: false,
-                slidesPerGroup: recommendedSlidesPerGroup,
-                slidesPerView: recommendedSlidesPerView,
-                freeMode: recommendedFreeMode,
-                spaceBetween,
-                navigation: {
-                    nextEl: ".product_relation .swiper-button-next",
-                    prevEl: ".product_relation .swiper-button-prev",
-                },
-            });
-
-            const imgCount = document.querySelectorAll(".m_product_detail .ThumbImage");
-            const target = document.querySelector(".m_product_detail .imgCount .total");
-            target.innerHTML = `${imgCount.length}`;
-
-            $(".product_thumbs_swiper .swiper-slide").css("width", "");
+            // const imgCount = document.querySelectorAll(".m_product_detail .ThumbImage");
+            // const target = document.querySelector(".m_product_detail .imgCount .total");
+            // target.innerHTML = `${imgCount.length}`;
 
             // 캘린더 버튼 노출여부
             const optionName1 = $('#product_option_id1').parent().prev().html();
@@ -1380,36 +803,132 @@
                 $(".calendarArea").show();
             }
 
-            $(".product_image_li").on("click", function () {
-                const index = $(this).index();
-                product_image_swiper.slideTo(index, 0, false);
-                product_thumbs_swiper.slideTo(index, 0, false);
-                modalProdThumb();
-            });
-
-            let kakao_map_html = $(".modal-kakaomap .modal-con").html();
-            const urlPattern = /^(?:\w+:)?\/\/([^\s.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
-
-            // 위치정보가 url이 맞는지 판단
-            if (urlPattern.test(kakao_map_html)) {
-                kakao_map_html = '<iframe src="' + kakao_map_html + '" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
-                $(".modal-kakaomap .modal-con").html(kakao_map_html);
-                $(".callMapArea").show();
-            }
-
             const contents = document.getElementById('contents');
             contents.style = '';
 
             await sleep(1000);
-            let image_list = $(".product_image_list .thumbnail");
-            for (let i = 0; i < image_list.length; i++) {
-                let text = $(image_list[i]).text();
-                let html = $(image_list[i]).html();
-                let replace_html = html.replace(text, '');
-                $(image_list[i]).html(replace_html);
-            }
         };
     })(jQuery1_12_4);
+
+    function convertOptionData(options) {
+        // 프론트 api에서 가져온 데이터를 전환한다
+        let optionData = { date_options: [], second_options: [], add_option_list: [] };
+        let startDate = "";
+        let endDate = "";
+
+        if (Array.isArray(options)) {
+            options.forEach(option => {
+                let optionName = option.option_name;
+                if (optionName === "timestamp") {
+                    let result = departTimeStampOption(option, optionData);
+                    startDate = result.start_date;
+                    endDate = result.end_date;
+                    optionData = result.options;
+                } else {
+                    let mappingOptionValue = [];
+                    let addOptionValue = option.option_value;
+                    let count = 1;
+                    if (Array.isArray(addOptionValue)) {
+                        count = 0;
+                        addOptionValue.forEach(value => {
+                            mappingOptionValue.push(value.option_text);
+                            count++;
+                        });
+                    }
+                    optionValueCount.push(count);
+                    option["option_value"] = mappingOptionValue;
+                    optionData.add_option_list.push(option);
+                }
+            });
+        }
+
+        return { options: optionData, start_date: startDate, end_date: endDate };
+    }
+
+    function convertPropertiesData(customProperties) {
+        let propertiesData = { reservation_type: "usedate", service_start_date: "", service_end_date: "" };
+        if (Array.isArray(customProperties)) {
+            customProperties.forEach(customProperty => {
+                let propertyname = customProperty?.property_name;
+                if (propertyname === "reservation_type") {
+                    propertiesData.reservation_type = customProperty?.property_value;
+                } else if (propertyname === "use_service_date" && customProperty?.property_value) {
+                    let use_service_date = JSON.parse(customProperty?.property_value);
+                    propertiesData.service_start_date = use_service_date?.start_date;
+                    propertiesData.service_end_date = use_service_date?.end_date;
+                }
+            });
+        }
+        return propertiesData;
+    }
+
+    function departTimeStampOption(timeStampOption, optionData) {
+        // TimeStamp 옵션 처리
+        let startDate = "";
+        let endDate = "";
+        let optionValue = timeStampOption.option_value;
+        if (Array.isArray(optionValue) === false) return {};
+
+        let dateList = {};
+        let timeList = {};
+
+        optionValue.forEach(value => {
+            let optionText = value.option_text;
+            let formattedArray = departStringTimeStamp(optionText);
+            let formattedDate = formattedArray[0];
+
+            if (formattedDate && !dateList.hasOwnProperty(formattedDate)) {
+                dateList[formattedDate] = formattedDate;
+                if (!startDate || compareDateTime(formattedDate, startDate) === 'before') {
+                    startDate = formattedDate;
+                }
+                if (!endDate || compareDateTime(formattedDate, endDate) === 'after') {
+                    endDate = formattedDate;
+                }
+            }
+
+            let formattedTime = formattedArray[1];
+            if (formattedTime && !timeList.hasOwnProperty(formattedTime)) {
+                timeList[formattedTime] = formattedTime;
+            }
+        });
+
+        optionData.date_options = Object.values(dateList);
+        optionData.second_options = Object.values(timeList);
+
+        return { options: optionData, start_date: startDate, end_date: endDate };
+    }
+
+    function departStringTimeStamp(timestamp) {
+        const strLength = timestamp.length;
+        if (strLength === 8) {
+            // 날짜만 있을 때 처리
+            const formattedDate = '20' + timestamp;
+
+            return [formattedDate, ""];
+        } else if (strLength === 17) {
+            // 날짜, 시간 모두 있을 때 처리
+            const formattedDate = '20' + timestamp.slice(0, 8);
+            const formattedTime = timestamp.slice(9, 14);
+
+            return [formattedDate, formattedTime];
+        }
+        return ["", ""];
+    }
+
+    function compareDateTime(targetDate, compareDate) {
+        if (!targetDate) return 'before';
+        if (!compareDate) return 'after';
+
+        const targetStamp = new Date(targetDate).getTime();
+        const compareStamp = new Date(compareDate).getTime();
+
+        if (targetStamp <= compareStamp) {
+            return 'before';
+        } else {
+            return 'after';
+        }
+    }
 
     function processDataContent(data, $) {
         const options = data.options;
@@ -1446,23 +965,23 @@
                 $(timeContent).insertBefore("#afterTimeGroup");
             });
         }
+
         // 추가옵션
         const addOptionList = options.add_option_list;
         const totalOptionCount = addOptionList.length
         if (Array.isArray(addOptionList) && totalOptionCount > 0) {
             let addOptionCount = 1;
             addOptionList.forEach(function (option) {
-                let addContent = '<li class="item item-option1">\n' +
+                let addContent = '<li class="item item-option1 add-option' + addOptionCount + '">\n' +
                     '    <a class="itemName add_option_' + addOptionCount + '" href="javascript:void(0)">\n' +
                     '        <div class="d-pc reservation_text_center">\n' +
-                    '            <span>' + option.option_name + '</span>\n' +
+                    '            <span class="dis-no">' + option.option_name + '</span>\n' +
+                    '            <p>컨셉을 선택해주세요.</p>\n' +
                     '            <div class="option_name displaynone">' + option.option_name + '</div>\n' +
-                    '            <img src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg" style="width: 15px; padding-top: 2px" alt="" />\n' +
                     '        </div>\n' +
                     '        <div class="d-mobile">\n' +
                     '            <div class="tit">' + option.option_name + '</div>\n' +
                     '            <div class="insertData">\n' +
-                    '                <img src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg" alt=""/>\n' +
                     '            </div>\n' +
                     '        </div>\n' +
                     '    </a>\n' +
@@ -1498,77 +1017,35 @@
         $('.item-time .itemName').addClass('disabled');
         $('.item-option1 .itemName').addClass('disabled');
         if (reservationType === 'custom') {
+            disableAddOption(1, 'custom');
             // 만약 시간옵션을 사용하지 않는다면 첫 추가옵션 푼다
             const timeDisplayStyle = $('.item-time').css('display');
             $('.item-time .itemName').removeClass('disabled');
             if (timeDisplayStyle === 'none') {
+                $('.item-option1 .add_option_1').addClass('ac');
                 $('.item-option1 .add_option_1').removeClass('disabled');
+                
             }
         }
     }
 
-    function timeItemClick(element) {
-        // 시간 선택 시 시간 탭 닫는다
-        const selectValue = $(element).text();
-        $(".timeGroup .ac").removeClass("ac");
-        $(element).parent().addClass("ac");
-        $(".item.item-time .itemName .d-pc span").text(selectValue);
-        $(".item.item-time .itemName .d-pc span").css('font-weight', 'bold');
-        $(".item.item-time .itemName .d-mobile .insertData").html(
-            selectValue + `<img src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg" alt="">`
-        );
-        $(".item.item-time.ac").removeClass("ac");
-        $(".item.item-option1.ac").removeClass("ac");
 
-        let timestampValue = optionValueList[1];
-        if (timestampValue) {
-            const flag = timestampValue.indexOf('T');
-            if (flag !== -1) {
-                timestampValue = timestampValue.substring(0, flag);
-            }
-            optionValueList[1] = timestampValue + "T" + selectValue + ":00";
-        } else {
-            optionValueList[1] = selectValue;
-        }
-
-        // 시간옵션이 마지막 옵션이라면 품목선택처리
-        if ($('.item-option1 .add_option_1').length <= 0) {
-            generateSelectItem();
-            return
-        }
-        $('.item-option1 .itemName').addClass('disabled');
-
-        $('.item-option1 .add_option_1').removeClass('disabled');
-        // 추가옵션 초기화
-        $('.item-option1').each(function (index, element) {
-            const optionName = $(element).find(".itemName .d-pc .option_name").text();
-            $(element).find(".itemName .d-pc span").text(optionName);
-            $(element).find(".itemName .d-mobile .insertData").html(
-                optionName + `<img src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg" alt="">`
-            );
-            $(element).find(".itemOption .option .optionItem").removeClass("ac");
-        });
-    }
-
+    /*
+        add_option 선택 시
+        <div class="optionItem"><a href="javascript:void(0)" onclick="addItemClick(1,1, this,'usedate')">흑백</a></div>
+    */
     function addItemClick(num, total, element, reservationType) {
-        // 옵션 선택시 옵션 탭 닫는다
         const elementTxt = $(element).text();
         const options = $(element).parent().parent().children();
-        for (let i = 0; i < options.length; i++) {
-            $(options[i]).removeClass("ac");
-        }
-        $(element).parent().addClass("ac");
+        // for (let i = 0; i < options.length; i++) {
+        //     $(options[i]).removeClass("ac");
+        // }
+        // $(element).parent().addClass("ac");
+        // $(element).parent().parent().parent().parent().find(".itemName .d-pc span").text('컨셉을 선택해주세요');
         $(element).parent().parent().parent().parent().find(".itemName .d-pc span").text(elementTxt);
-        $(element).parent().parent().parent().parent().find(".itemName .d-pc span").css('font-weight', 'bold');
-        $(element)
-            .parent()
-            .parent()
-            .parent()
-            .parent()
-            .find(".itemName .d-mobile .insertData")
-            .html(elementTxt + `<img src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg" alt="">`);
-        $(element).parent().parent().parent().parent().removeClass("ac");
-
+        // $(element).parent().parent().parent().parent().find(".itemName .d-pc span").css('font-weight', 'bold');
+        // $(element).parent().parent().parent().parent().find(".itemName .d-mobile .insertData").html(elementTxt);
+        
         let target = num + 1;
         if (reservationType !== "custom") {
             optionValueList[target] = elementTxt;
@@ -1585,19 +1062,101 @@
                 return
             }
         }
-
+        if (reservationType === "accommodation") {
+            accomodationDisableAddOption(target);
+        } else {
+            disableAddOption(target, reservationType);
+        }
         for (let i = target; i <= total; i++) {
-            $('.item-option1 .add_option_' + i).addClass('disabled');
-            $('.item-option1 .add_option_' + i).parent().removeClass("ac");
+            // $('.item-option1 .add_option_' + i).addClass('disabled');
+            // $('.item-option1 .add_option_' + i).parent().removeClass("ac");
             element = $('.itemName.add_option_' + i);
             const optionName = element.find(".d-pc .option_name").text();
             element.find(".d-pc span").text(optionName);
-            element.find(".d-mobile .insertData").html(
+            element.find(".d-mobile .insertData").html(optionName);
+            element.parent().find(".itemOption .option .optionItem").removeClass("sel");
+            // element.parent().find(".itemOption .option .optionItem").removeClass("ac");
+        }
+        // $('.item-option1 .add_option_' + target).removeClass('disabled');
+    }
+
+
+    /* ***********************************
+    *****                            *****
+    *****        미사용 함수          *****
+    *****                            *****
+    ************************************ */
+
+    // 시간 선택
+    function timeItemClick(element) {
+        // 시간 선택 시 시간 탭 닫는다
+        const selectValue = $(element).text();
+        $(".timeGroup .ac").removeClass("ac");
+        $(element).parent().addClass("ac");
+        $(".item.item-time .itemName .d-pc span").text(selectValue);
+        $(".item.item-time .itemName .d-pc span").css('font-weight', 'bold');
+        $(".item.item-time .itemName .d-mobile .insertData").html(
+            selectValue + `<img src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg" alt="">`
+        );
+        $(".item.item-time.ac").removeClass("ac");
+        $(".item.item-option1.ac").removeClass("ac");
+
+        let timestampValue = optionValueList[1];
+        let fullTimestampValue = selectValue;
+        if (timestampValue) {
+            const flag = timestampValue.indexOf('T');
+            if (flag !== -1) {
+                timestampValue = timestampValue.substring(0, flag);
+            }
+            fullTimestampValue = timestampValue + "T" + selectValue + ":00";
+        }
+        optionValueList[1] = fullTimestampValue;
+
+        // 시간옵션이 마지막 옵션이라면 품목선택처리
+        if ($('.item-option1 .add_option_1').length <= 0) {
+            generateSelectItem();
+            return
+        }
+        $('.item-option1 .itemName').addClass('disabled');
+
+        $('.item-option1 .add_option_1').removeClass('disabled');
+
+        disableAddOption(1, 'usetime');
+        // 추가옵션 초기화
+        $('.item-option1').each(function (index, element) {
+            const optionName = $(element).find(".itemName .d-pc .option_name").text();
+            $(element).find(".itemName .d-pc span").text(optionName);
+            $(element).find(".itemName .d-mobile .insertData").html(
                 optionName + `<img src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg" alt="">`
             );
-            element.parent().find(".itemOption .option .optionItem").removeClass("ac");
+            $(element).find(".itemOption .option .optionItem").removeClass("ac");
+        });
+    }
+
+    // 재고가 0
+    function getZeroOptionValues(variants) {
+        if (Array.isArray(variants) === false) {
+            return {};
         }
-        $('.item-option1 .add_option_' + target).removeClass('disabled');
+
+        variants.forEach(variant => {
+            const variantOptions = variant.options;
+            // 재고가 0이고 옵션이 있는 품주들만 기록한다
+            if (variant.quantity !== 0 || Array.isArray(variantOptions) === false) return;
+            let keyValue = "";
+            variantOptions.forEach(option => {
+                keyValue += option.value + "|";
+                // 시간옵션과 추가옵션 상대로 품목이 0인것들 기록
+                if (option.name === "timestamp" && option.value.length !== 17) return;
+                // 해당값이 있으면 기존값에 +1 하고 아니면 1로 초기화 값을 준다
+                if (zeroOptionValues.hasOwnProperty(keyValue)) {
+                    zeroOptionValues[keyValue] += 1;
+                } else {
+                    zeroOptionValues[keyValue] = 1;
+                }
+            })
+        });
+        return zeroOptionValues;
     }
 
     function boardMove(target_id) {
@@ -2277,99 +1836,131 @@
     }
 
     function disableTimeOption(date) {
+        // 시간옵션에서 재고 0이면 노출안한다
         const regex = /^\d{4}-\d{2}-\d{2}$/;
         if (regex.test(date)) {
             const parts = date.split("-");
             date = parts[0].substring(2) + "-" + parts[1] + "-" + parts[2];
         }
+        let limit = getLimitCount(0);
         // 시간 옵션 아래 품목이 재고가 모두 0일때 해당 시간 옵션 노출안함
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('product_no')) {
-            const productNo = urlParams.get('product_no');
-            (function(CAFE24API) {
-                CAFE24API.get('/api/v2/products/' + productNo + '?embed=variants,options', function (err, res) {
-                    let disableTimestamps = '';
-                    if (res.product) {
-                        const variants = res.product.variants ? res.product.variants : {};
-                        const options = (res.product.options && res.product.options.options) ? res.product.options.options : {};
-                        let itemSize = 1;
-                        // 날짜별 품목수 계산
-                        for (let key in options) {
-                            let optionData = options[key];
-                            // 시간옵션 기본으로 1개 추가 옵션 있으면 거기에 곱해준다
-                            if (optionData['option_name'] !== 'timestamp') {
-                                // 추가옵션수 계산
-                                itemSize *= optionData['option_value'].length;
-                            }
-                        }
-                        let countZero = {};
-                        // 품목을 루프돌리면서 날짜별 재고 0인 품목수 기록한다.
-                        for (let variantId in variants) {
-                            const variantInfo = variants[variantId];
-                            if (variantInfo.quantity === 0) {
-                                const variantOptions = variantInfo.options ? variantInfo.options : {};
-                                for (let optionId in variantOptions) {
-                                    const targetName = variantOptions[optionId].name;
-                                    const targetValue = variantOptions[optionId].value;
-                                    if (targetName === 'timestamp' && targetValue.includes(date)) {
-                                        if (countZero.hasOwnProperty(targetValue)) {
-                                            countZero[targetValue] += 1;
-                                        } else {
-                                            countZero[targetValue] = 1;
-                                        }
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        // 한 timestamp 안의 모든 품목재고가 0인 timestamp 들을 찾아낸다
-                        for (let timestamp in countZero) {
-                            if (countZero[timestamp] === itemSize) {
-                                disableTimestamps += timestamp + ',';
-                            }
-                        }
-                    }
-                    // 재고 0인 시간옵션 노출안함
-                    const timeLinks = document.querySelectorAll('.time a');
-                    timeLinks.forEach(link => {
-                        // 먼저 시간옵션 모두 초기화 한다
-                        const parentDiv = link.closest('.time');
-                        if (parentDiv) {
-                            parentDiv.style.setProperty("display", "");
-                            // 재고 0인 시간들 찾아냄
-                            if (disableTimestamps.includes(link.textContent.trim())) {
-                                // parent div 비노출
-                                parentDiv.style.display = "none";
-                                // display: none !important 스타일 추가
-                                parentDiv.style.setProperty("display", "none", "important");
-                            }
-                        }
-                    });
+        const timeLinks = document.querySelectorAll('.time a');
+        let timestamp ="";
+        timeLinks.forEach(link => {
+            // 먼저 시간옵션 모두 초기화 한다
+            const parentDiv = link.closest('.time');
+            if (!parentDiv) return;
+            parentDiv.style.setProperty("display", "");
+            timestamp = date + 'T' + link.textContent.trim() + ":00|";
+            // 0재고에 옵션값이 있고 개수가 limit와 같으면 노출안한다
+            if (zeroOptionValues.hasOwnProperty(timestamp) && zeroOptionValues[timestamp] === limit) {
+                // parent div 비노출
+                parentDiv.style.display = "none";
+                // display: none !important 스타일 추가
+                parentDiv.style.setProperty("display", "none", "important");
+            }
+        });
 
-                    // 시간옵션 처리
-                    $('.item-time .itemName').removeClass('disabled');
-                    $('.item-time').each(function(index, element) {
-                        $(element).find(".itemName .d-pc span").text("시간");
-                        $(element).find(".itemName .d-mobile .insertData").html(
-                            '시간' + `<img src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg" alt="">`
-                        );
-                        $(element).find(".itemOption .timeWrap .timeGroup .time").removeClass("ac");
-                    });
-                })
-            })(CAFE24API.init({
-                client_id : '99w67QuqGR8jrvD5qaCxRB',  // 사용할 앱의 App Key를 설정해 주세요.
-                version : '2024-03-01'   // 적용할 버전을 설정해 주세요.
-            }));
+        // 시간옵션 처리
+        $('.item-time .itemName').removeClass('disabled');
+        $('.item-time').each(function(index, element) {
+            $(element).find(".itemName .d-pc span").text("시간");
+            $(element).find(".itemName .d-mobile .insertData").html(
+                '시간' + `<img src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg" alt="">`
+            );
+            $(element).find(".itemOption .timeWrap .timeGroup .time").removeClass("ac");
+        });
+    }
+
+    function disableAddOption(depth, reservationType) {
+        // 추가옵션에서 재고 0이면 노출안한다
+        let prevSelectedValue = "";
+        // 사용자 옵션형과 다른 유형의 뎁스가 다르다
+        if (reservationType === 'custom') {
+            prevSelectedValue = getPrevSelectedValue(depth - 1);
         } else {
-            $('.item-time .itemName').removeClass('disabled');
-            $('.item-time').each(function(index, element) {
-                $(element).find(".itemName .d-pc span").text("시간");
-                $(element).find(".itemName .d-mobile .insertData").html(
-                    '시간' + `<img src="https://m-img.cafe24.com/images/reservation/ic_accArrow.svg" alt="">`
-                );
-                $(element).find(".itemOption .timeWrap .timeGroup .time").removeClass("ac");
-            });
+            prevSelectedValue = getPrevSelectedValue(depth);
         }
+        let limit = getLimitCount(depth);
+
+        const targetSelector = '.add-option' + depth + ' .optionItem a';
+        const addItemLinks = document.querySelectorAll(targetSelector);
+        let targetFullValue = "";
+        // 추가옵션 아래 품목이 재고가 모두 0일때 해당 추가옵션 노출안함
+        addItemLinks.forEach(link => {
+            // 먼저 추가옵션 모두 초기화 한다
+            const parentDiv = link.closest('.optionItem');
+            if (!parentDiv) return;
+            parentDiv.style.setProperty("display", "");
+            targetFullValue = prevSelectedValue + link.textContent.trim() + "|";
+            // 0재고에 옵션값이 있고 개수가 limit와 같으면 노출안한다
+            if (zeroOptionValues.hasOwnProperty(targetFullValue) && zeroOptionValues[targetFullValue] === limit) {
+                // parent div 비노출
+                parentDiv.style.display = "none";
+                // display: none !important 스타일 추가
+                parentDiv.style.setProperty("display", "none", "important");
+            }
+        });
+    }
+
+    function accomodationDisableAddOption(depth) {
+        // 숙박형에서 추가옵션 재고 0 판단
+        let limit = getLimitCount(depth);
+        // 해당 뎁스에 옶션값이 몇개인지 판단
+        let total = optionValueCount[depth - 1];
+        // 해당 뎁스 옵션 찾는다
+        const targetSelector = '.add-option' + depth + ' .optionItem a';
+        const addItemLinks = document.querySelectorAll(targetSelector);
+        let targetFullValue = "";
+        // 해당 뎁스에서 비노출 처리한 옵션 값을 통계
+        let disabledCount = 0;
+        // 추가옵션 아래 품목이 재고가 모두 0일때 해당 추가옵션 노출안함
+        addItemLinks.forEach(link => {
+            // 먼저 추가옵션 모두 초기화 한다
+            const parentDiv = link.closest('.optionItem');
+            if (!parentDiv) return;
+            parentDiv.style.setProperty("display", "");
+            // 선택한 날짜 리스트
+            const dateArray = getDates();
+            for (let i = 0; i < dateArray.length; i++) {
+                let prevSelectedValue = dateArray[i] + "|";
+                for (let j = 2; j <= depth; j++) {
+                    prevSelectedValue += optionValueList[j] + "|";
+                }
+                targetFullValue = prevSelectedValue + link.textContent.trim() + "|";
+                // 0재고에 옵션값이 있고 개수가 limit와 같으면 노출안한다
+                if (zeroOptionValues.hasOwnProperty(targetFullValue) && zeroOptionValues[targetFullValue] === limit) {
+                    // parent div 비노출
+                    parentDiv.style.display = "none";
+                    // display: none !important 스타일 추가
+                    parentDiv.style.setProperty("display", "none", "important");
+                    // disabledCount 수를 추가 하고 다음 옵션값을 판단한다
+                    disabledCount++;
+                    break;
+                }
+            }
+        });
+        // 비활성화한 옵션수 이번 뎁스 옵션수와 같으면 false 리턴한다
+        if (disabledCount === total) {
+            return false
+        }
+        return true
+    }
+
+    function getPrevSelectedValue(depth) {
+        let prevSelectedValue = "";
+        for (let i = 1; i <= depth; i++) {
+            prevSelectedValue += optionValueList[i] + "|";
+        }
+        return prevSelectedValue;
+    }
+
+    function getLimitCount(index) {
+        let limit = 1;
+        for (let i = index; i < optionValueCount.length; i++) {
+            limit *= optionValueCount[i];
+        }
+        return limit;
     }
 
     function htmlDecode(input) {
@@ -2378,4 +1969,83 @@
         return textarea.value;
     }
 
+</script>
+
+<script>
+    $(document).ready(function() {
+        // let totalProducts = $('#totalProducts .option_products').hide();
+        let calendarWr = $('.scrollWrap .group1');
+        let option_products = calendarWr.next();
+
+        // MutationObserver 설정
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.addedNodes.length) {
+                    checkOptionProducts();
+                }
+            });
+        });
+
+        // observer를 totalProducts 연결
+        observer.observe(option_products[0], {
+            childList: true,
+            subtree: true
+        });
+
+        function checkOptionProducts() {
+            let option_product = option_products.find('.option_product');
+            let fakeDateEl = $('.fakeDate p');
+            let fakeOptEl = $('.fakeOpt p');
+            let fakeTimeEl = $('.fakeTime p');
+            
+            $(document).on('click', '.datepicker--cell', function() {
+                let dateVal = $('.item-date .itemName .reservation_text_center span').text();
+                $('.add-option1').removeClass('optSel');
+                $('.add-option1').find('.optionItem').removeClass('sel')
+                setTimeout(function () {
+                    if($('.item-date').hasClass('select')){
+                        $('.add-option1').addClass('optSel');                    
+                    }else{
+                        $('.add-option1').removeClass('optSel');
+                    }
+                    // console.log('dateVal : ' + dateVal);
+                    fakeDateEl.text(dateVal);
+                }, 300);
+            });
+
+            $(document).on('click', '.optionItem', function() {
+                let optVal = $('.add-option1 .itemName .reservation_text_center span').text();
+                if($(this).hasClass('sel') != 1){
+                    $('.optionItem').removeClass('sel');
+                    $(this).addClass('sel');
+                    $(this).closest('.add-option1').addClass('select');
+                }
+
+                if($(this).closest('.add-option1').hasClass('select')){
+                    $('#addProductPanel').addClass('timeSel');
+                }else{
+                    $('#addProductPanel').removeClass('timeSel');
+                }
+
+                // console.log('optVal : ' + optVal);
+                fakeOptEl.text(optVal);
+            });
+
+            $(document).on('click', '#addProductPanel .ec-product-button li', function() {
+                setTimeout(function () {
+                    let timeVal = $('#addProductPanel .ec-product-button .ec-product-selected a span').text();
+                    fakeTimeEl.text(timeVal);
+                    // console.log('timeVal : ' + timeVal);
+                }, 300);
+            });
+            
+        }
+
+        // 초기 체크
+        checkOptionProducts();
+
+        setInterval(function () {
+            $('.reservation_option_select').next('.xans-product-quantity').css({'opacity':'0','position':'absolute'});
+        }, 300);
+    });
 </script>

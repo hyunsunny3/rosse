@@ -202,7 +202,7 @@
 
 #totalProducts tbody tr.option td{border-top: 1px solid #ebebeb;}
 #totalProducts tbody tr.option th {border-top:0;}
-#totalProducts > table > tbody > tr:first-child > td{border-top: 1px solid #9a9ba0;}
+/* #totalProducts > table > tbody > tr:first-child > td{border-top: 1px solid #9a9ba0;} */
 #totalProducts > table > tbody > tr > td:first-child{padding-left:4px;}
 #totalProducts table tr.option_product > td{padding:0}
 #totalProducts table tr.option_product > td > table tr:first-child td {border-top:0;}

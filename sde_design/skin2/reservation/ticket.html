@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,viewport-fit=cover" name="viewport">
+    <title>모바일 예약 확인</title>
+    <link rel="stylesheet" href="/reservation/css/use_check.css">
+</head>
+<body>
+    <div class="displaynone" module="MyShop_OrderHistoryDetail" unroll="1">
+        <span id="buyer_name">{$order.name}</span>
+    </div>
+    <cafe24-app-reservation-check></cafe24-app-reservation-check>
+</body>
+
+<script type="module">
+    class cafe24AppReservationCheck extends HTMLElement {
+        constructor() {
+            super();
+            this.attachShadow({ mode: 'open' });
+            this.shadowRoot.innerHTML = `<link rel="stylesheet" href="/reservation/css/use_check.css">
+<div class="container-main">
+  <header class="header">
+    <a href="/" class="link_home"><span class="icon icon_home">홈으로 가기</span></a>
+    <!--<a href="#none" class="link_close"><span class="icon icon_close">닫기</span></a>-->
+  </header>
+  <main class="main-content">
+    <section id="box_reserve_list" class="section_main" style="min-height:100%;">
+    </section>
+  </main>
+</div>`;
+        }
+
+        async connectedCallback() {
+            // 초기화
+            this.languageCode = CAFE24.FRONT_LANGUAGE_CODE
+            this.token = await this.getToken();
+            this.isApplyingReserve = false;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('order_id') && this.token) {
+                const orderId = urlParams.get('order_id');
+                // 주문번호를 가지고 품주들 조회
+                const productNos = await this.getProductNos(orderId);
+                const prdImgList = await this.getPrdImgList(productNos);
+                const orderItemList = await this.getOrderInfo(orderId);
+                this.createOrderInfo(orderItemList, prdImgList)
+
+                // Attach event listeners to the buttons
+                this.shadowRoot.querySelectorAll('.link_btn').forEach((btn, index) => {
+                    btn.addEventListener('click', () => this.reserveComplete(orderItemList[index]));
+                });
+            }
+        }
+
+        async getToken() {
+            return new Promise(function (resolve, reject) {
+                CAFE24API.getEncryptedMemberId('99w67QuqGR8jrvD5qaCxRB',function(err, res){
+                    if (err) {
+                        reject('');
+                    } else {
+                        resolve(res.member_id);
+                    }
+                });
+            });
+        }
+
+        async getProductNos(orderId) {
+            const shopNo = CAFE24.SDE_SHOP_NUM;
+            const result = await CAPP_ASYNC_METHODS.AppCommon.getOrderDetailInfo(shopNo, orderId);
+            // 상품번호 획득
+            let aProductNos = [];
+            let sProductNos = '';
+            const items = result[0]['items'];
+
+            for (let i = 0; i < items.length; i++) {
+                let productNo = items[i]['product_no'];
+                if (aProductNos.indexOf(productNo) === -1) {
+                    aProductNos.push(productNo);
+                    sProductNos += productNo + ',';
+                }
+            }
+
+            // Remove the trailing comma if sProductNos is not empty
+            if (sProductNos.length > 0) {
+                sProductNos = sProductNos.slice(0, -1);
+            }
+
+            return sProductNos;
+        }
+
+        async getPrdImgList(productNos) {
+            return new Promise(function (resolve, reject) {
+                const initApi = CAFE24API.init({
+                    client_id : '99w67QuqGR8jrvD5qaCxRB',  // 사용할 앱의 App Key를 설정해 주세요.
+                    version : '2024-03-01'   // 적용할 버전을 설정해 주세요.
+                });
+
+                initApi.get('/api/v2/products?embed=variants,options&shop_no=' + CAFE24API.SHOP_NO + '&product_no=' + productNos, function (err, res) {
+                    if (res.hasOwnProperty('products')) {
+                        let result = [];
+                        res.products.forEach(product => {
+                            result[product.product_no] = product.detail_image ? product.detail_image : 'https://dummyimage.com/444x256.png';
+                        });
+                        resolve(result);
+                    } else {
+                        reject({});
+                    }
+                })
+            });
+        }
+
+        async getOrderInfo(orderId) {
+            let result = [];
+            try {
+                const response = await fetch('https://reservation.cafe24.com/api/ec_front/reservation_order_detail?order_id=' + orderId, {
+                    method: 'GET',
+                    headers: {
+                        'token': this.token
+                    }
+                });
+                const text = await response.text();
+                if (text) {
+                    const data = JSON.parse(text);
+                    result = data.data;
+                }
+            } catch (error) {
+                console.log('Error fetching JSON:', error);
+            }
+            return result;
+        }
+
+        createOrderInfo(orderItemList, prdImgList) {
+            const boxReserveList = this.shadowRoot.getElementById('box_reserve_list');
+            boxReserveList.innerHTML = ''; // Clear existing rows
+            let reserveLisHtml = '';
+            orderItemList.forEach(item => {
+                let itemCode = item.order_item_code;
+                let productNo = item.product_no
+                itemCode = itemCode.replaceAll('-', '');
+                let itemHtml = '<div class="box_reserve">\n';
+                itemHtml += '<div class="wrap_info">\n';
+                itemHtml += '<span class="name_info">' + this.getTextByLanguage(0) + ' ' + item.buyer_name + '</span>\n';
+                itemHtml += '<strong class="prd_tit">' + item.product_name + '</strong>\n';
+                itemHtml += '<span class="info_txt">' + item.option_value + '</span>\n';
+                // 품주상태에 따라 이용완료 버튼 노출
+                if (item.order_status !== 'N50') {
+                    itemHtml += '<a href="#none" class="link_btn" >' + this.getTextByLanguage(1) + '</a>\n';
+                } else {
+                    itemHtml += '<div class="wrap_stt">\n'
+                    itemHtml += '<span class="icon icon_check"></span>\n'
+                    itemHtml += '<span class="stt_txt">' + this.getTextByLanguage(2) + '</span>\n'
+                    itemHtml += '</div>\n';
+                }
+                itemHtml += '<div class="prd_thumb">\n';
+                itemHtml += '<img src="' + prdImgList[productNo] + '" class="thumb_img" alt="">\n';
+                itemHtml += '</div>\n';
+                itemHtml += '</div>\n';
+                itemHtml += '<div class="wrap_barcode">\n';
+                itemHtml += '<div class="barcode">\n';
+                // 바코드 생성
+                itemHtml += '<div class="wrap_img"><img alt="" class="img_barcode" src="http://bwipjs-api.metafloor.com/?bcid=code128&text=' + itemCode + '&height=16"></div>\n';
+                itemHtml += '<span class="barcode_num">' + itemCode + '</span>';
+                itemHtml += '</div>';
+                itemHtml += '</div>';
+                itemHtml += '</div>';
+                reserveLisHtml += itemHtml;
+            });
+            boxReserveList.innerHTML = reserveLisHtml;
+        }
+
+        getTextByLanguage(index) {
+            const languageObj = {
+                'ko_KR': ['예약자', '이용완료 하기', '이용완료'],
+                'vi_VN': ['예약자', '이용완료 하기', '이용완료'],
+                'ja_JP': ['예약자', '이용완료 하기', '이용완료'],
+                'en_US': ['예약자', '이용완료 하기', '이용완료'],
+                'zh_CN': ['예약자', '이용완료 하기', '이용완료'],
+                'zh_TW': ['예약자', '이용완료 하기', '이용완료'],
+            }
+            if (languageObj.hasOwnProperty(this.languageCode)) {
+                return languageObj[this.languageCode][index];
+            }
+            return languageObj.ko_KR[index];
+        }
+
+        async reserveComplete(item) {
+            // 이용완료처리 버튼 비활성화
+            if (this.isApplyingReserve) {
+                return;
+            }
+            this.isApplyingReserve = true;
+            const token = await this.getToken();
+            let orderItemCode = item.order_item_code;
+            $.ajax({
+                url: "https://reservation.cafe24.com/api/ec_front/reservation_complete",
+                type: "PUT",
+                headers: {
+                    'token': token, // 요청 헤더 설정
+                },
+                data: {
+                    'order_item_code': orderItemCode,
+                },
+                success: function (result) {
+                    if (result.code === 200) {
+                        alert("이용완료 처리되었습니다.");
+                        location.reload();
+                    } else {
+                        alert(result.message);
+                    }
+                },
+                error: function (error) {
+                    alert(error.responseJSON?.message);
+                }
+            }).always(function () {
+                // 마지막에 버튼 활성화
+                this.isApplyingReserve = false;
+            });
+        }
+    }
+    customElements.define('cafe24-app-reservation-check', cafe24AppReservationCheck);
+</script>

@@ -1,5 +1,5 @@
 (function ($) {
-  $.fn.datepicker.language["ko"] = {
+  $.fn.datepicker.language["ko_KR"] = {
     days: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"],
     daysShort: ["일", "월", "화", "수", "목", "금", "토"],
     daysMin: ["일", "월", "화", "수", "목", "금", "토"],
@@ -24,7 +24,7 @@
     timeFormat: "hh:ii:ss",
     firstDay: 0,
   };
-  $.fn.datepicker.language["us"] = {
+  $.fn.datepicker.language["en_US"] = {
     days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
     daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     daysMin: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -49,7 +49,7 @@
     timeFormat: "hh:ii:ss",
     firstDay: 0,
   };
-  $.fn.datepicker.language["vn"] = {
+  $.fn.datepicker.language["vi_VN"] = {
     days: ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"],
     daysShort: ["C", "H", "B", "T", "N", "S", "B"],
     daysMin: ["C", "H", "B", "T", "N", "S", "B"],
@@ -74,7 +74,7 @@
     timeFormat: "hh:ii:ss",
     firstDay: 0,
   };
-  $.fn.datepicker.language["jp"] = {
+  $.fn.datepicker.language["ja_JP"] = {
     days: ["日", "月", "火", "水", "木", "金", "土"],
     daysShort: ["日", "月", "火", "水", "木", "金", "土"],
     daysMin: ["日", "月", "火", "水", "木", "金", "土"],
@@ -99,7 +99,7 @@
     timeFormat: "hh:ii:ss",
     firstDay: 0,
   };
-  $.fn.datepicker.language["cn"] = {
+  $.fn.datepicker.language["zh_CN"] = {
     days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
     daysShort: ["日", "一", "二", "三", "四", "五", "六"],
     daysMin: ["日", "一", "二", "三", "四", "五", "六"],
@@ -124,7 +124,7 @@
     timeFormat: "hh:ii:ss",
     firstDay: 0,
   };
-  $.fn.datepicker.language["tw"] = {
+  $.fn.datepicker.language["zh_TW"] = {
     days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
     daysShort: ["日", "一", "二", "三", "四", "五", "六"],
     daysMin: ["日", "一", "二", "三", "四", "五", "六"],

@@ -62,7 +62,7 @@ body {
     html, body {font-size: 50%;}
 }
 @media (max-width: 1150px)  {
-    html, body {font-size: 42%;}
+    /* html, body {font-size: 42%;} */
 }
 
 

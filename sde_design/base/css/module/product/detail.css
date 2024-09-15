@@ -139,19 +139,6 @@
 #totalProducts table p:not(.product) a:before { content: ''; position: absolute;left:10px; top: 50%; width: 9px; height: 1px; background: #000; }
 #totalProducts table p:not(.product) .up:after {content: ''; position: absolute;left: 50%; top: 50%;width: 1px;height: 9px; margin: -4px 0 0 0; background: #000;}
 
-#totalProducts { margin:21px 0 0; }
-#totalProducts table { margin:0; }
-#totalProducts table .left { text-align:left; }
-#totalProducts table .center { text-align:center; }
-#totalProducts table .right {font-weight:bold; text-align:right; }
-#totalProducts thead th { height:0; padding:0; font-size:0; line-height:0; }
-#totalProducts tbody th { vertical-align:middle; }
-#totalProducts tbody th strong { font-weight:normal; }
-#totalProducts tbody td { padding:30px 0; line-height:18px; vertical-align:middle; word-wrap:break-word; word-break:break-all; }
-#totalProducts tbody td .product + .product { padding:7px 10px 0 0; }
-#totalProducts tbody td .product span { font-weight:normal; color:#7d7d7d; line-height:18px; }
-#totalProducts tbody td .product span.soldOut { display:inline-block; color:#000; }
-#totalProducts tbody td img { vertical-align:middle; }
 #totalProducts .quantity { display:inline-block; position:relative; width:103px !important; padding:0 30px;vertical-align:top; box-sizing:border-box; }
 #totalProducts .quantity input { width:45px; height:30px; line-height:28px; margin-left:-1px; padding:0; border:1px solid #e5e5e5; text-align:center; }
 #totalProducts .quantity input:focus,
@@ -165,8 +152,6 @@
 #totalProducts .delete { display:inline-block; width:12px; height:12px; margin:10px 0 0 5px; vertical-align: middle; background: url(//img.echosting.cafe24.com/skin/skin/product/ico_product_delete.svg) no-repeat 0 0; }
 #totalProducts .delete img { opacity: .00001; }
 #totalProducts tbody td .mileage { display:block; white-space:nowrap; }
-#totalProducts .xans-product-fileoption {border-top:1px solid #e5e5e5;}
-#totalProducts > table > tbody > tr:first-child > td { border-top:1px solid #e5e5e5; }
 #totalProducts > table > tbody > tr > td:first-child { padding-right:10px; }
 #totalProducts tr.option_product > td > table { margin:-30px 0; }
 #totalProducts tr.option_product > td > table tr:first-child td:nth-child(2),
@@ -276,7 +261,6 @@
 /********************* Mobile  *********************/
 @media all and (max-width:640px) {
 	#mCafe24Order #totalProducts .delete { position:relative; display:inline-block; right: 0;  }
-	#mCafe24Order .product_detail #totalProducts tbody td p:not(.product) { padding: 0 30px; }
 }
 /********************* Mobile / Tablet *********************/
 @media all and (max-width:1024px) {
@@ -483,7 +467,6 @@
 	.xans-product-detail .xans-product-option td {display:block;}
 	.xans-product-detail .xans-product-mobileimage {width:108%;margin-left:-4%;}
 	.xans-product-detail .infoArea {width:100%;margin:0;position:relative;}
-	#totalProducts tbody td {padding:15px 0;}
 	#totalProducts .delete {margin-top:0;}
 	#totalProducts .eAddProductQuantityUpClass {position:absolute;top:0;right:0;}
 	#totalProducts .eAddProductQuantityDownClass {position:absolute;top:0;left:0;}

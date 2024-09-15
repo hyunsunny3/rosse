@@ -14,32 +14,7 @@
 
 
 /* infoArea */
-.xans-product-detail .infoArea p.delivery { padding:10px 0 20px; }
-.xans-product-detail .infoArea .guideArea { overflow:hidden; margin:10px 0 0; }
-.xans-product-detail .infoArea .guideArea .info { float:left; }
-.xans-product-detail .infoArea .guideArea .sizeGuide { float:right; }
-.xans-product-detail .infoArea .sizeGuide a { display:inline-block; padding:2px 15px 2px 24px; vertical-align:top; }
-.xans-product-detail .infoArea .sizeGuide a:hover { text-decoration:none; }
-	.xans-product-detaildesign > table > tbody > tr:first-child { display:none; }
-.xans-product-detail .infoArea table { border:0; margin:10px 0 0; font-size:13px; line-height:18px; }
-.xans-product-detail .infoArea th { font-weight:normal; width:106px; padding:7px 5px 6px 0; text-align:left; vertical-align:top; }
-.xans-product-detail .infoArea td { padding:7px 6px 8px 0; vertical-align:middle; }
-.xans-product-detail .infoArea img { vertical-align:middle; }
-.xans-product-detail .infoArea td input[type=text] { width:80%; }
-.xans-product-detail .infoArea select { width:100%; }
-.xans-product-detail .infoArea td #delivery_cost_prepaid { margin:0 0 10px; }
-.xans-product-detail .infoArea td .sale { text-decoration:line-through; }
-.xans-product-detail .infoArea td .period { display:block; margin:7px 0 0; font-size:11px; color:#353535; }
-.xans-product-detail .infoArea td .mileage li { line-height:1.7em; }
-.xans-product-detail .infoArea td img.qrcode { border:1px solid #e1e1e1; }
-.xans-product-detail .infoArea td #span_product_coupon_dc_price { color:#070705; }
-.xans-product-detail .infoArea td.fileInfo { color:#757575; }
-.xans-product-detail .infoArea td.fileInfo input { width:288px;  }
-.xans-product-detail .infoArea td.fileInfo .infoDesc { margin:0 0 10px 0; }
-.xans-product-detail .infoArea td.fileInfo li { margin:4px 0 0; color:#757575; font-size:11px; }
-.xans-product-detail .infoArea td.fileInfo li img { vertical-align:bottom; }
-.xans-product-detail .delv_price_B strong { font-weight:normal; }
-.xans-product-detail .btnTooltip { display:inline-block; z-index:10; vertical-align:middle; }
+
 /* option */
 .xans-product-detail .xans-product-option { display:block; }
 .xans-product-detail .xans-product-option th { display:block; vertical-align:top; }
@@ -128,77 +103,6 @@
 /* quantity */
 .ec-base-desc.quantity { margin:10px 0 0; padding:10px 0 0; border-top:1px solid #ddd; }
 .ec-base-desc.quantity dt { width:125px; padding:0 0 0 8px; }
-#totalProducts table p:not(.product) { position:relative; display:inline-block; width:103px; margin:10px 0 0; padding:0 30px; vertical-align:top; box-sizing:border-box; }
-#totalProducts table p:not(.product) .quantity_opt { width:45px; height:30px; padding:0; line-height:28px; margin-left:-1px; border:1px solid #e5e5e5; text-align:center; }
-#totalProducts table p:not(.product) .quantity_opt:focus,
-#totalProducts table p:not(.product) .quantity_opt:hover { border:1px solid #e5e5e5; }
-#totalProducts table p:not(.product) img { position:absolute; top:0; left:0; opacity:.00001; width:100%; height:100%; z-index:10; }
-#totalProducts table p:not(.product) .up { position:absolute; right:0; top:0; }
-#totalProducts table p:not(.product) .down { position:absolute; left:0; top:0; }
-#totalProducts table p:not(.product) a { width:30px; height:30px; border:1px solid #e5e5e5; box-sizing:border-box; overflow: hidden; white-space: nowrap; text-indent: 150%; color: transparent; font-size: 1px; line-height:1px; }
-#totalProducts table p:not(.product) a:before { content: ''; position: absolute;left:10px; top: 50%; width: 9px; height: 1px; background: #000; }
-#totalProducts table p:not(.product) .up:after {content: ''; position: absolute;left: 50%; top: 50%;width: 1px;height: 9px; margin: -4px 0 0 0; background: #000;}
-
-#totalProducts { margin:21px 0 0; }
-#totalProducts table { margin:0; }
-#totalProducts table .left { text-align:left; }
-#totalProducts table .center { text-align:center; }
-#totalProducts table .right {font-weight:bold; text-align:right; }
-#totalProducts thead th { height:0; padding:0; font-size:0; line-height:0; }
-#totalProducts tbody th { vertical-align:middle; }
-#totalProducts tbody th strong { font-weight:normal; }
-#totalProducts tbody td { padding:30px 0; line-height:18px; vertical-align:middle; word-wrap:break-word; word-break:break-all; }
-#totalProducts tbody td .product + .product { padding:7px 10px 0 0; }
-#totalProducts tbody td .product span { font-weight:normal; color:#7d7d7d; line-height:18px; }
-#totalProducts tbody td .product span.soldOut { display:inline-block; color:#000; }
-#totalProducts tbody td img { vertical-align:middle; }
-#totalProducts .quantity { display:inline-block; position:relative; width:103px !important; padding:0 30px;vertical-align:top; box-sizing:border-box; }
-#totalProducts .quantity input { width:45px; height:30px; line-height:28px; margin-left:-1px; padding:0; border:1px solid #e5e5e5; text-align:center; }
-#totalProducts .quantity input:focus,
-#totalProducts .quantity input:hover { border:1px solid #e5e5e5; }
-#totalProducts .quantity img { position: absolute;top: 0;left: 0;opacity: .00001;width: 100%;height: 100%; z-index: 10; }
-#totalProducts .quantity .up { position:absolute; right:0; top:0; }
-#totalProducts .quantity .down { position:absolute; left:0; top:0; }
-#totalProducts .quantity a { width:30px; height:30px; border:1px solid #e5e5e5; box-sizing:border-box; overflow: hidden; white-space: nowrap; text-indent: 150%; color: transparent; font-size: 1px; line-height:1px; }
-#totalProducts .quantity a:before { content: ''; position: absolute;left:10px; top: 50%; width: 9px; height: 1px; background: #000; }
-#totalProducts .quantity .up:after {content: ''; position: absolute;left: 50%; top: 50%;width: 1px;height: 9px; margin: -4px 0 0 0; background: #000;}
-#totalProducts .delete { display:inline-block; width:12px; height:12px; margin:10px 0 0 5px; vertical-align: middle; background: url(//img.echosting.cafe24.com/skin/skin/product/ico_product_delete.svg) no-repeat 0 0; }
-#totalProducts .delete img { opacity: .00001; }
-#totalProducts tbody td .mileage { display:block; white-space:nowrap; }
-#totalProducts .xans-product-fileoption {border-top:1px solid #e5e5e5;}
-#totalProducts > table > tbody > tr:first-child > td { border-top:1px solid #e5e5e5; }
-#totalProducts > table > tbody > tr > td:first-child { padding-right:10px; }
-#totalProducts tr.option_product > td > table { margin:-30px 0; }
-#totalProducts tr.option_product > td > table tr:first-child td:nth-child(2),
-#totalProducts tr.option_product > td > table tr:first-child td:nth-child(3) { white-space:nowrap; }
-#totalProducts tr.option_product > td > table tr:first-child td.right { white-space:normal; }
-#totalProducts tr.option_product > td > table tr:first-child th,
-#totalProducts tr.option_product > td > table tr:first-child td { border-top:0; }
-#totalProducts tr.option_product > td > table tr.option > td { border-top:1px solid #e5e5e5; padding:9px 0; }
-#totalProducts tr.option_product > td > table tr.option > td:first-child{ padding:0; }
-#totalProducts tr.option_product th[colspan="3"] { padding:25px 0 0; }
-#totalProducts tr.option_product + tr.option_product > td {border-top: 1px solid #e5e5e5;}
-#totalProducts .xans-product-option,
-#totalProducts .xans-product-option tr,
-#totalProducts tr.xans-product-addoption {display:table-row;}
-#totalProducts .xans-product-option th,
-#totalProducts .xans-product-option td { display:table-cell; }
-#totalProducts tbody tr.xans-product-addoption th,
-#totalProducts tbody tr.xans-product-addoption td { border-top:0; }
-#totalProducts > table > tbody > tr#totalProductsOption > td:first-child {border-top: 0;padding:0;}
-#totalProducts tr.add_product { border-top:1px solid #e5e5e5; }
-#totalProducts tr.add_product > td { padding-right:0; }
-#totalProducts tr.add_product > td > table { margin:-30px 0; }
-#totalProducts tr.add_product > td > table tr.option > td:first-child { padding:0; }
-#totalProducts tr.add_product > td > table tr:first-child th,
-#totalProducts tr.add_product > td > table tr:first-child td { border-top:0; }
-#totalProducts tr.add_product .product { padding:0; }
-#totalPrice { display:flex; justify-content:space-between; font-size:15px; border-top:1px solid #e5e5e5; vertical-align:middle; background:#fff; }
-#totalPrice .title { font-weight:normal; }
-#totalPrice .qty { color:#7d7d7d; }
-#totalPrice .total { color:#7d7d7d; font-size:13px; }
-#totalPrice .total strong { color:#000; color:var(--font-color-primary); font-size:15px;  }
-#totalPrice .total em {font-style:normal;}
 
 /* 바로구매 시 옵션영역 */
 #mCafe24Order .product_detail #totalProducts tbody.option_products tr.option_product td .quantity { padding:0 24px; }
@@ -275,50 +179,16 @@
 
 /********************* Mobile  *********************/
 @media all and (max-width:640px) {
-	#mCafe24Order #totalProducts .delete { position:relative; display:inline-block; right: 0;  }
-	#mCafe24Order .product_detail #totalProducts tbody td p:not(.product) { padding: 0 30px; }
+	
 }
 /********************* Mobile / Tablet *********************/
 @media all and (max-width:1024px) {
-    .xans-product-detail .imgArea { margin:0 0 28px; }
-    .xans-product-detail .imgArea .prdImg img { width:100%; }
-    .xans-product-detail .imgArea .listImg { display:none; }
-    .xans-product-detail .imgArea .xans-product-action { display:none; }
-    .xans-product-detail .infoArea { margin:0 16px; }
-    .xans-product-detail .xans-product-action .gActionButtonColumn { display:flex; }
-    .xans-product-detail .xans-product-action .gActionButtonColumn [class*="btn"] { flex:1; margin:10px 0 0; }
-    #NaverChk_Button { margin:0 0 10px; }
-    #totalPrice { padding:40px 0 26px; }
-    .xans-product-detail .discountMember > li { position:static; }
-    .xans-product-detail .btnTooltip { position:static; }
-    .differentialShipping { left:0; right:0; width:88%; margin:10px auto 0; }
+    
 }
 
 /********************* PC *********************/
 @media all and (min-width:1025px) {
-    .xans-product-detail { padding:30px 0 0 0; }
-    .xans-product-detail .detailArea { font-size:0; line-height:0; }
-    .xans-product-detail .imgArea { display:inline-block; width:calc(100% - 620px); }
-    .xans-product-detail .imgArea .prdImg { width:100%; margin:0 auto; }
-    .xans-product-detail .imgArea .prdImg img { width:100%; }
-    .xans-product-detail .imgArea .listImg { position:relative; overflow:hidden; width:100%; height:94px; margin:24px 0 0; padding:0 40px; box-sizing:border-box; }
-    .xans-product-detail .imgArea .listImg .inner { position:relative; overflow:hidden; width:100%; height:94px; }
-    .xans-product-detail .imgArea .listImg ul { margin:0 -6px; }
-    .xans-product-detail .imgArea .listImg li { display:inline-block; width:80px; margin:0 6px; font-size:12px; line-height:14px; vertical-align:top; }
-    .xans-product-detail .imgArea .listImg li img { max-width:100%; cursor:pointer; }
-    .xans-product-detail .imgArea .listImg button { position:absolute; top:0; width:30px; height:94px; font-size:0; line-height:0; color:transparent; border:1px solid #e3e3e3; box-sizing:border-box; }
-    .xans-product-detail .imgArea .listImg .icon { border-color:#6d6d6d; }
-    .xans-product-detail .imgArea .listImg .prev { left:0; background-position:0 0; }
-    .xans-product-detail .imgArea .listImg .prev .icon { margin-left:3px; }
-    .xans-product-detail .imgArea .listImg .next { right:0; background-position:-31px 0; }
-    .xans-product-detail .imgArea .listImg .next .icon { margin-left:-3px; }
-    .xans-product-detail .infoArea { display:inline-block; top:100px; width:483px; margin:0 69px 0 68px; font-size:13px; line-height:1; vertical-align:top; }
-    #totalPrice { padding:27px 0 26px; }
-  	#orderFixArea { display:none !important; }
-    .xans-product-detail .xans-product-action .gActionButtonColumn { display:flex; margin:0 -5px; }
-    .xans-product-detail .xans-product-action .gActionButtonColumn [class*="btn"] { flex:1; margin:10px 5px; }
-    .xans-product-detail .btnTooltip { position:relative; }
-    .differentialShipping { left:50%; top:17px; width:350px; margin:0 0 0 -176px; }
+    
 
 	/* 적립금 자세히보기 */
 	.xans-product-detail .mileage_tooltip {position:relative;display:inline-block;}
@@ -483,14 +353,6 @@
 	.xans-product-detail .xans-product-option td {display:block;}
 	.xans-product-detail .xans-product-mobileimage {width:108%;margin-left:-4%;}
 	.xans-product-detail .infoArea {width:100%;margin:0;position:relative;}
-	#totalProducts tbody td {padding:15px 0;}
-	#totalProducts .delete {margin-top:0;}
-	#totalProducts .eAddProductQuantityUpClass {position:absolute;top:0;right:0;}
-	#totalProducts .eAddProductQuantityDownClass {position:absolute;top:0;left:0;}
-	#totalProducts .eAddProductQuantityUpClass:after {content: '';position: absolute;left: 50%;top: 50%;width: 1px;height: 9px;margin: -4px 0 0 0;background: #000;}
-	#totalProducts tr.option_product > td > table,
-	#totalProducts tr.add_product > td > table {margin:-15px 0;}
-	#totalProducts tr.option_product > td > table > colgroup > col:first-child {width:auto !important;}
 	.xans-product-detail .infoArea td input[type=text] {width:100%;}
 	.xans-product-detail .xans-product-addoption .txtByte {margin:10px 0 0 0;display:block;}
 	#totalProducts table p input[type=number] {width:45px;height:30px;padding:0;line-height:28px;margin-left:-1px;border:1px solid #e5e5e5;text-align:center;}

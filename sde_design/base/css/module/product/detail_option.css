@@ -105,57 +105,6 @@ body { background:none !important; }
 #totalProducts p:not(.product) .up:after {content: ''; position: absolute;left: 50%; top: 50%;width: 1px;height: 9px; margin: -4px 0 0 0; background: #000;}
 
 /* 옵션 레이어 > 총 상품 */
-#totalProducts { margin:21px 0 0; }
-#totalProducts table { margin:0; table-layout: fixed; }
-#totalProducts table .left { text-align:left; }
-#totalProducts table .center { text-align:center; }
-#totalProducts table .right {font-weight:bold; text-align:right; }
-#totalProducts thead th { height:0; padding:0; font-size:0; line-height:0; }
-#totalProducts tbody th { padding-left:15px; vertical-align:middle; font-weight:normal; text-align:left; }
-#totalProducts tbody td { padding:30px 0; line-height:18px; vertical-align:middle; word-wrap:break-word; word-break:break-all; }
-#totalProducts tbody td .product + .product { padding:7px 10px 0 0; }
-#totalProducts tbody td .product span { font-weight:normal; color:#7d7d7d; line-height:18px; }
-#totalProducts tbody td .product span.soldOut { display:inline-block; color:#000; }
-#totalProducts tbody td img { vertical-align:middle; }
-#totalProducts .quantity { display:inline-block; position:relative; width:103px !important; padding:0 30px;vertical-align:top; box-sizing:border-box; }
-#totalProducts .quantity input { width:45px; height:30px; line-height:28px; margin-left:-1px; padding:0; border:1px solid #e5e5e5; text-align:center; }
-#totalProducts .quantity input:focus,
-#totalProducts .quantity input:hover { border:1px solid #e5e5e5; }
-#totalProducts .quantity img { position: absolute;top: 0;left: 0;opacity: .00001;width: 100%;height: 100%; z-index: 10; }
-#totalProducts .quantity .up { position:absolute; right:0; top:0; }
-#totalProducts .quantity .down { position:absolute; left:0; top:0; }
-#totalProducts .quantity a { width:30px; height:30px; border:1px solid #e5e5e5; box-sizing:border-box; overflow: hidden; white-space: nowrap; text-indent: 150%; color: transparent; font-size: 1px; line-height:1px; }
-#totalProducts .quantity a:before { content: ''; position: absolute;left:10px; top: 50%; width: 9px; height: 1px; background: #000; }
-#totalProducts .quantity .up:after {content: ''; position: absolute;left: 50%; top: 50%;width: 1px;height: 9px; margin: -4px 0 0 0; background: #000;}
-#totalProducts .delete { display:inline-block; width:12px; height:12px; margin:10px 0 0 5px; vertical-align: middle; background: url(//img.echosting.cafe24.com/skin/skin/product/ico_product_delete.svg) no-repeat 0 0; }
-#totalProducts .delete img { opacity: .00001; }
-#totalProducts tbody td .mileage { display:block; white-space:nowrap; }
-#totalProducts .xans-product-fileoption {border-top:1px solid #e5e5e5;}
-#totalProducts .option_product { border-top:1px solid #e5e5e5; }
-#totalProducts .option_product > td tbody > tr:first-child td:first-child { padding-left:20px; }
-#totalProducts tr.option_product > td > table { margin:-30px 0; }
-#totalProducts tr.option_product > td > table tr:first-child td:nth-child(2),
-#totalProducts tr.option_product > td > table tr:first-child td:nth-child(3) { white-space:nowrap; }
-#totalProducts tr.option_product > td > table tr:first-child td.right { white-space:normal; }
-#totalProducts tr.option_product > td > table tr:first-child th,
-#totalProducts tr.option_product > td > table tr:first-child td { border-top:0; }
-#totalProducts tr.option_product > td > table tr.option > td { border-top:1px solid #e5e5e5; padding:9px 0; }
-#totalProducts tr.option_product > td > table tr.option > td:first-child{ padding:0; }
-#totalProducts tr.option_product th[colspan="3"] { padding:25px 0 0; }
-#totalProducts tr.option_product + tr.option_product > td {border-top: 1px solid #e5e5e5;}
-#totalProducts tbody tr.xans-product-addoption th,
-#totalProducts tbody tr.xans-product-addoption td { border-top:0; }
-#totalProducts tbody tr.xans-product-addoption td,
-#totalProducts tbody tr.xans-product-fileoption td { padding-left:10px; }
-#totalProducts tbody tr.xans-product-addoption input[type="text"] { width:136px; }
-#totalProducts > table > tbody > tr#totalProductsOption > td:first-child {border-top: 0;padding:0;}
-#totalProducts tr.add_product { border-top:1px solid #e5e5e5; }
-#totalProducts tr.add_product > td { padding-right:0; }
-#totalProducts tr.add_product > td > table { margin:-30px 0; }
-#totalProducts tr.add_product > td > table tr.option > td:first-child { padding:0; border-top:0; }
-#totalProducts tr.add_product > td > table tr:first-child th,
-#totalProducts tr.add_product > td > table tr:first-child td { border-top:0; }
-#totalProducts tr.add_product .product { padding:0; }
 
 #product_detail_option_layer .totalPrice { display:flex; justify-content:space-between; padding:15px; font-size:15px; vertical-align:middle; background:#f9f9f9; }
 #product_detail_option_layer .totalPrice .title { font-weight:normal; }
@@ -164,25 +113,6 @@ body { background:none !important; }
 #product_detail_option_layer .totalPrice .total em {font-style:normal;}
 
 /** 오우이_style 210824 **/
-#totalProducts {margin:21px 16px 0;}
-#totalProducts .delete {margin-top:0;}
-#totalProducts tbody td {padding:15px 0;}
-#product_detail_option_layer .xans-product-option .ec-product-button.ec-product-preview li {border-radius:50%;}
-#product_detail_option_layer .xans-product-option .ec-product-button.ec-product-preview li a {width:20px;height:20px;min-width:auto;}
-#product_detail_option_layer .xans-product-option .ec-product-button li a {height:24px;}
-#product_detail_option_layer .xans-product-option .ec-product-button li a span {line-height:1;padding:7px 5px;font-size:11px;}
-#product_detail_option_layer .xans-product-action .ec-base-button #actionBuy {font-weight:400;}
-#totalProducts p:not(.product) .eAddProductQuantityUpClass { position:absolute; right:0; top:0; }
-#totalProducts p:not(.product) .eAddProductQuantityDownClass { position:absolute; left:0; top:0; }
-#totalProducts p:not(.product) .eAddProductQuantityUpClass:after {content: ''; position: absolute;left: 50%; top: 50%;width: 1px;height: 9px; margin: -4px 0 0 0; background: #000;}
-#totalProducts tr.option_product > td > table,
-#totalProducts tr.add_product > td > table {margin:-15px 0;}
-#totalProducts tr.option_product > td > table tr:first-child td {padding-bottom:0;}
-#totalProducts tr.option_product > td > table tr.option table td {padding-bottom:15px;}
-#totalProducts tbody th,
-#totalProducts tr.option_product > td > table tr:first-child th,
-#totalProducts .option_product > td tbody > tr:first-child td:first-child {padding-left:0;}
-#product_detail_option_layer td.fileInfo .infoDesc { margin:0; }
 
 /* 간편결제 */
 #NaverChk_Button,

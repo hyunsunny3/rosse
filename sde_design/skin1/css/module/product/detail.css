@@ -171,7 +171,7 @@
 #totalProducts .delete img { opacity: .00001; }
 #totalProducts tbody td .mileage { display:block; white-space:nowrap; }
 #totalProducts .xans-product-fileoption {border-top:1px solid #e5e5e5;}
-#totalProducts > table > tbody > tr:first-child > td { border-top:1px solid #e5e5e5; }
+/* #totalProducts > table > tbody > tr:first-child > td { border-top:1px solid #e5e5e5; } */
 #totalProducts > table > tbody > tr > td:first-child { padding-right:10px; }
 #totalProducts tr.option_product > td > table { margin:-30px 0; }
 #totalProducts tr.option_product > td > table tr:first-child td:nth-child(2),
