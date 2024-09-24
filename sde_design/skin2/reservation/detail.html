@@ -103,20 +103,23 @@
 
                             <ul class="product itemOption">
                                 <li>
-                                    <div class="information">
-                                        <div class="thumbnail">
-                                            <a href="{$link_product_detail}"
-                                            ><img src="{$product_image}" alt id="{$image_id}"
-                                            /></a>
-                                        </div>
-                                        <div>
-                                            <p class="name" title="상품명">{$product_name}</p>
-                                            <p class="price {$product_price_display|display}" title="판매가">
-                                                <span class="{$product_price_del}">{$product_price}{$product_tax_type_text}</span>
-                                            </p>
-                                            <p class="salePrice {$product_sale_price_display|display}" title="할인판매가">
-                                                {$product_sale_price}
-                                            </p>
+                                    <div>
+                                        <ul class="customSelWr"></ul>
+                                        <div class="information">
+                                            <div class="thumbnail">
+                                                <a href="{$link_product_detail}"
+                                                ><img src="{$product_image}" alt id="{$image_id}"
+                                                /></a>
+                                            </div>
+                                            <div>
+                                                <p class="name" title="상품명">{$product_name}</p>
+                                                <p class="price {$product_price_display|display}" title="판매가">
+                                                    <span class="{$product_price_del}">{$product_price}{$product_tax_type_text}</span>
+                                                </p>
+                                                <p class="salePrice {$product_sale_price_display|display}" title="할인판매가">
+                                                    {$product_sale_price}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                     <ul class="option">
@@ -245,6 +248,23 @@
                 <div module="product_detail">
                     <div class="infoArea">
                         <!-- 선택상품 -->
+                        <div class="fakePrd">
+                            <ul>
+                                <li class="fakeDate">
+                                    <strong>날짜</strong>
+                                    <p></p>
+                                </li>
+                                <li class="fakeOpt">
+                                    <strong>컨셉</strong>
+                                    <p></p>
+                                </li>
+                                <!-- <li class="fakeTime">
+                                    <strong>시간</strong>
+                                    <p></p>
+                                </li> -->
+                            </ul>
+                        </div>
+
                         <div id="{$total.total_id}" class="{$total.total_display}">
                             <p class="ec-base-help txtWarn txt11 displaynone {$single_item_display|display}">수량을 선택해주세요.</p>
                             <p class="ec-base-help txtWarn txt11 {$several_item_display|display}">옵션을 선택해주세요.</p>
@@ -311,23 +331,6 @@
                                 <tbody class="add_product_area option_products"></tbody>
                                 <!-- // 옵션선택 또는 세트상품 선택시 상품이 추가되는 영역입니다. 삭제시 기능이 정상동작 하지 않습니다. -->
                             </table>
-                        </div>
-
-                        <div class="fakePrd">
-                            <ul>
-                                <li class="fakeDate">
-                                    <strong>날짜</strong>
-                                    <p></p>
-                                </li>
-                                <li class="fakeOpt">
-                                    <strong>컨셉</strong>
-                                    <p></p>
-                                </li>
-                                <li class="fakeTime">
-                                    <strong>시간</strong>
-                                    <p></p>
-                                </li>
-                            </ul>
                         </div>
 
                         <!-- 총 금액 -->
@@ -2027,24 +2030,186 @@
                     $('#addProductPanel').removeClass('timeSel');
                 }
 
-                // console.log('optVal : ' + optVal);
                 fakeOptEl.text(optVal);
+
+                // let timeAddSel = $('#addProductPanel .reservation_option_select select');
+                // let timeAddOpt = timeAddSel.find('option');
+                // let timeAddSelEl = $('#addProductPanel .reservation_option_select select').html();
+                // let customSelWr = $('.customSelWr');
+
+                // console.log(timeAddSelEl);
+                
+                // if ($('.customSelWr').is(':empty')) {
+                //     customSelWr.append(timeAddSelEl);
+                //     timeAddSel.hide();
+
+                //     let customOpt = $('.customSelWr').find('option');
+                //     customOpt.each(function() {
+                //         var $this = $(this);
+                //         var $newP = $('<li class="customOptLi"></li>');
+                        
+                //         // 기존 속성 복사
+                //         $.each($this[0].attributes, function() {
+                //             if (this.specified) {
+                //                 $newP.attr(this.name, this.value);
+                //             }
+                //         });
+
+                //         $newP.html($this.html());
+                //         $this.replaceWith($newP);
+                //     });
+                // }
             });
 
-            $(document).on('click', '#addProductPanel .ec-product-button li', function() {
-                setTimeout(function () {
-                    let timeVal = $('#addProductPanel .ec-product-button .ec-product-selected a span').text();
-                    fakeTimeEl.text(timeVal);
-                    // console.log('timeVal : ' + timeVal);
-                }, 300);
-            });
+            let timeTxt = $('.add_products .product span').text();
+            console.log(timeTxt);
+            if(fakeTimeEl.is(':empty')){
+
+                setTimeout(() => {
+                        
+                                fakeTimeEl.text(timeTxt);
+                            }, 100);
+            }
+            // let timeAddSel = $('#addProductPanel .reservation_option_select select');
+            // timeAddSel.change(function() {
+
+            //     // 바로 실행
+            //     fakeTimeEl.text(timeTxt);
+            // });
+
+            // let timeAddSel = $('#addProductPanel .reservation_option_select select');
+            // timeAddSel.change(function() {
+            //     let timeTxt = $('.add_products .product span').text();
+            //     console.log(timeTxt);
+            //     setTimeout(() => {
+                    
+            //         fakeTimeEl.text(timeTxt);
+            //     }, 100);
+            // });
             
+
+            // $(document).on('click', '.customOptLi', function(){
+            //     if (!$(this).hasClass('on')) {
+            //         $('.customOptLi').removeClass('on');
+            //         $(this).addClass('on');
+            //     }
+
+            //     let oriOpt = $('#addProductPanel .reservation_option_select select').find('option');
+            //     let selectedValue = $(this).attr('value'); 
+
+            //     oriOpt.each(function() {
+            //         if ($(this).val() == selectedValue) {
+            //             $(this).prop('selected', true);
+            //         } else {
+            //             $(this).prop('selected', false);
+            //         }
+            //     });
+
+
+
+            //     fakeTimeEl.text($(this).text());
+
+            //     let totalPrdNm = $('#totalProducts .option_product').find('p.product');
+            //     if(totalPrdNm.find('.timeTxt').length <= 0){
+            //         totalPrdNm.find('span').append('<span class="timeTxt">' + $(this).text() + '</span>');
+            //     }
+
+            // });
+
+            
+
+
+            // 시간 옵션 커스텀
+            // let timeAddSel = $('#addProductPanel .reservation_option_select select');
+            // let timeAddOpt = timeAddSel.find('option');
+            // let timeAddSelEl = $('#addProductPanel .reservation_option_select select').html();
+            // let customSelWr = $('.customSelWr');
+
+            // console.log(timeAddSelEl);
+            
+            // customSelWr.append(timeAddSelEl);
+            // timeAddSel.hide();
+
+            // timeAddOpt.each(function(){
+            //     let optTxt = $(this).text();
+            //     let optVal = $(this).attr('value');
+
+            //     customSelWr.append('<li value=' + optVal + ' >' + optTxt + '</li>');
+
+            //     timeAddSel.hide();
+            // });
+
+            // console.log(timeAddOpt.text());
+
+            // timeAddSel.change(function() {
+            //     let selectedText = $(this).find('option:selected').text();
+            //     console.log(selectedText);
+            // });
+
+            
+
+            // let timeAddOpt = $('#addProductPanel').find('option').filter(function() {
+            //     //option 요소 중 time이라는 옵션 있을 경우
+            //     return $(this).text() === 'time';
+            // });
+            // let timeAddSel = timeAddOpt.parent('select');
+            // timeAddSel.addClass('hsCustomOpt');
+            // // timeAddOpt.closest('ul.option').hide();
+
+            // let optionsOriEl = timeAddSel.html();
+            // let optionsOri = timeAddSel.find('option');
+            // let customSelWr = $('.customSelWr');
+
+            // customSelWr.html(optionsOriEl);
+
+            // let optionsCustom = customSelWr.find('option');
+
+            // optionsCustom.each(function(){
+            //     let optTxt = $(this).text();
+            //     let optVal = $(this).attr('value');
+
+            //     customSelWr.append('<li value=' + optVal + ' >' + optTxt + '</li>');
+
+            //     $(this).remove();
+            // });
+
+            
+            // let optLi = customSelWr.find('li');
+            // optLi.each(function(){
+            //     let liTxt = $(this).text();
+            //     let liVal = $(this).attr('value');
+
+            //     if (liTxt.includes('-') || liTxt === 'time') {
+            //         $(this).remove();
+            //     }
+
+            //     $(this).on('click',function(){
+            //         optLi.removeClass('on');
+            //         $(this).addClass('on');
+
+            //         optionsOri.each(function() {
+            //             if($(this).attr('value') == liVal) {
+            //                 $(this).prop('selected', true);
+            //             } else {
+            //                 $(this).prop('selected',false);
+            //             }
+            //         });
+
+
+            //         fakeTimeEl.text(liTxt);
+
+            //     });
+            // });
+            
+            // let fakeTimeTxt = fakeTimeEl.text();
+            // $('.option_product').find('p.product').prepend('<span>' + fakeTimeTxt + '</span>');
+
         }
 
         // 초기 체크
         checkOptionProducts();
-
-        setInterval(function () {
+        
+        setTimeout(function () {
             $('.reservation_option_select').next('.xans-product-quantity').css({'opacity':'0','position':'absolute'});
         }, 300);
     });

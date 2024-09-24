@@ -351,9 +351,15 @@
   gap: 3px;
 }
 .hs .xans-board-listpackage-8 .xans-board-list-8 ul li {
+  position: relative;
   width: auto;
   margin: 0;
   padding: 0;
+}
+.hs .xans-board-listpackage-8 .xans-board-list-8 li .boardChk{
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .hs .xans-board-listpackage-8 .xans-board-list-8 ul li .thumbnail {
   height: 100%;
@@ -464,9 +470,9 @@
 
 body.popup {
   position: relative;
-  height: 100%;
-  min-height: 100%;
-  overflow: hidden !important;
+  /* height: 100%;
+  min-height: 100%; */
+  /* overflow: hidden !important; */
   touch-action: none;
 }
 .hs .prcLayerWr {
@@ -733,14 +739,32 @@ body.popup {
   white-space: nowrap;
 }
 .hs .reservation_area .reservation_option_area .infoArea p.product span {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 500;
   color: #000;
   line-height: 1;
 }
 
-.hs .reservation_area .reservation_option_area .infoArea #totalProducts {
+/* .hs .reservation_area .reservation_option_area .infoArea #totalProducts {
   display: none !important;
+} */
+.hs .reservation_area .reservation_option_area .infoArea #totalProducts tbody.option_products{
+  display: none !important;
+}
+.hs .reservation_area .reservation_option_area .infoArea #totalProducts .add_products .add_product td:first-child{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.hs .reservation_area .reservation_option_area .infoArea #totalProducts .add_products .add_product td:first-child::before{
+  content: "시간";
+  font-size: 1.6rem;
+  color: #999;
+  font-weight: 500;
+}
+.hs .reservation_area .reservation_option_area .infoArea #totalProducts .add_products .add_product td:nth-child(2){
+  display: inline-block;
 }
 .hs .reservation_area .reservation_option_area .infoArea #totalProducts tbody tr {
   position: relative;
@@ -768,7 +792,7 @@ body.popup {
 }
 .hs .reservation_area .reservation_option_area .infoArea #totalProducts .delete {
   position: absolute;
-  right: 0;
+  right: -2.5rem;
   left: auto;
   top: 50%;
   transform: translateY(-50%);
